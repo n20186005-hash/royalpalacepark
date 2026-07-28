@@ -13,10 +13,9 @@ compatibility_date = "2025-07-28"
 
 # 静态资源托管：把 Astro 构建产物作为站点资源
 # directory 必须与 astro.config 的构建输出目录（dist）一致
-# binding 仅在你后续要写 Worker 脚本读取资源时才用到，这里保留以便扩展
+# 纯静态 assets-only Worker 不能再声明 asset binding，否则 wrangler deploy 会报错
 [assets]
 directory = "./dist"
-binding = "ASSETS"
 # 若日后需要 404 自定义页，取消下一行注释（需先生成 dist/404.html）
 # not_found = "./dist/404.html"
 
