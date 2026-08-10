@@ -1,98 +1,70 @@
 ---
-import Icon from './Icon.astro';
-import { mapsUrl } from '../config';
-
-interface Props {
-  lang: string;
-  messages: any;
-}
-const { lang, messages } = Astro.props;
-const footer = messages.footer;
-
-const exploreLinks = [
-  { id: 'intro', label: messages.header.intro },
-  { id: 'history', label: messages.header.history },
-  { id: 'guide', label: messages.header.guide },
-  { id: 'transport', label: messages.header.transport },
-  { id: 'facilities', label: messages.header.facilities },
-  { id: 'faq', label: messages.header.faq },
-];
-const resources = footer.resources ?? [];
+import { attraction, mapsUrl } from '../config';
 ---
 
-<footer class="bg-green-deep text-cream">
-  <div class="mx-auto max-w-6xl px-4 py-14">
-    <div class="grid gap-10 md:grid-cols-4">
-      <div class="md:col-span-1">
-        <div class="flex items-center gap-2 font-serif text-xl font-semibold">
-          <Icon name="park" class="w-6 h-6 text-gold" />
-          <span>{footer.siteName}</span>
+<footer class="bg-navy text-white/70">
+  <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="grid gap-12 md:grid-cols-3">
+      <!-- Brand -->
+      <div class="space-y-4">
+        <div class="flex items-center gap-2.5">
+          <img
+            src="/favicon.svg"
+            alt=""
+            class="h-8 w-8 invert animate-spin-slow"
+            width="32"
+            height="32"
+          />
+          <span class="text-lg font-semibold text-white">{attraction.name}</span>
         </div>
-        <p class="mt-3 text-sm text-cream/80">{footer.tagline}</p>
-        <p class="mt-4 text-xs leading-relaxed text-cream/70">{footer.rights}</p>
+        <p class="text-sm leading-relaxed">
+          A landmark of sustainable energy and natural beauty on the shores of Bangui Bay,
+          Ilocos Norte — where the wind powers both the land and the imagination.
+        </p>
       </div>
 
+      <!-- Quick Links -->
       <div>
-        <h3 class="font-serif text-sm font-semibold uppercase tracking-wide text-gold">{footer.exploreTitle}</h3>
-        <ul class="mt-4 space-y-2 text-sm">
-          {
-            exploreLinks.map((l) => (
-              <li>
-                <a href={`/${lang}#${l.id}`} class="text-cream/80 transition hover:text-gold">
-                  {l.label}
-                </a>
-              </li>
-            ))
-          }
+        <h3 class="mb-4 text-sm font-semibold uppercase tracking-wider text-white/90">Quick Links</h3>
+        <ul class="space-y-2.5 text-sm">
+          <li><a href="#introduction" class="transition-colors hover:text-gold">Overview</a></li>
+          <li><a href="#history" class="transition-colors hover:text-gold">History</a></li>
+          <li><a href="#entrance-fee" class="transition-colors hover:text-gold">Entrance & Fees</a></li>
+          <li><a href="#transport" class="transition-colors hover:text-gold">How to Get There</a></li>
+          <li><a href="#gallery" class="transition-colors hover:text-gold">Photo Gallery</a></li>
+          <li><a href="#faq" class="transition-colors hover:text-gold">FAQ</a></li>
         </ul>
       </div>
 
+      <!-- Contact / Map -->
       <div>
-        <h3 class="font-serif text-sm font-semibold uppercase tracking-wide text-gold">{footer.resourcesTitle}</h3>
-        <ul class="mt-4 space-y-2 text-sm">
-          {
-            resources.map((r: any) => (
-              <li>
-                <a href={r.url} target="_blank" rel="noopener" class="text-cream/80 transition hover:text-gold">
-                  {r.label}
-                </a>
-              </li>
-            ))
-          }
-          <li>
-            <a href={mapsUrl} target="_blank" rel="noopener" class="text-cream/80 transition hover:text-gold">
-              Google Maps
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      <div>
-        <h3 class="font-serif text-sm font-semibold uppercase tracking-wide text-gold">{footer.visitTitle}</h3>
-        <p class="mt-4 text-sm text-cream/80">{footer.addressLabel}: {footer.addressValue}</p>
-        <a
-          href={mapsUrl}
-          target="_blank"
-          rel="noopener"
-          class="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-gold transition hover:text-white"
-        >
-          <Icon name="map" class="w-4 h-4" />
-          {footer.mapsLabel}
-        </a>
+        <h3 class="mb-4 text-sm font-semibold uppercase tracking-wider text-white/90">Location</h3>
+        <div class="space-y-3 text-sm">
+          <p>Bangui Bay, Bangui<br />Ilocos Norte, 2920 Philippines</p>
+          <p class="font-mono text-white/50">{attraction.plusCode}</p>
+          <a
+            href={mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1.5 text-gold transition-colors hover:text-gold-light"
+          >
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+            View on Google Maps
+          </a>
+        </div>
       </div>
     </div>
 
-    <div class="mt-10 border-t border-cream/20 pt-6">
-      <p class="text-xs leading-relaxed text-cream/70">{footer.missionTitle}: {footer.missionText}</p>
-      <p class="mt-3 text-xs leading-relaxed text-cream/60">{footer.disclaimer}</p>
+    <!-- Disclaimer -->
+    <div class="mt-12 border-t border-white/10 pt-8 text-center text-xs text-white/40">
+      <p>
+        This is an unofficial travel guide created by enthusiasts. We are not affiliated with
+        the Bangui Windmills management, NorthWind Power Development Corporation, ACEN, or any
+        government entity. All information is provided for reference only — please verify
+        details before your visit.
+      </p>
     </div>
-
-    <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
-      <a href={`/${lang}/privacy-policy`} class="text-cream/85 transition hover:text-gold">{footer.privacy}</a>
-      <a href={`/${lang}/terms-of-service`} class="text-cream/85 transition hover:text-gold">{footer.terms}</a>
-      <a href={`/${lang}/cookie-settings`} class="text-cream/85 transition hover:text-gold">{footer.cookie}</a>
-    </div>
-
-    <p class="mt-6 text-xs text-cream/60">© {new Date().getFullYear()} {footer.siteName}.</p>
   </div>
 </footer>

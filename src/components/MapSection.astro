@@ -1,54 +1,44 @@
 ---
-import Icon from './Icon.astro';
-import { mapsUrl, mapsEmbedSrc } from '../config';
-
-interface Props {
-  lang: string;
-  messages: any;
-}
-const { messages } = Astro.props;
-const map = messages.map;
+import { attraction, mapsUrl } from '../config';
 ---
 
-<section id="map" class="scroll-mt-20 bg-sand/60 py-16 md:py-24">
-  <div class="mx-auto max-w-6xl px-4">
-    <p class="section-eyebrow">{map.eyebrow}</p>
-    <h2 class="mt-2 font-serif text-3xl font-bold text-green-deep md:text-4xl">{map.title}</h2>
-    <p class="mt-3 max-w-2xl text-charcoal/70">{map.subtitle}</p>
+<section id="map-section" class="section">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="reveal mb-12 text-center">
+      <span class="badge">Location</span>
+      <h2 class="mt-4 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">
+        Find Us on the Map
+      </h2>
+    </div>
 
-    <div class="mt-8 grid gap-6 md:grid-cols-3">
-      <div class="glass-card rounded-2xl p-6 md:col-span-1">
-        <div class="space-y-4">
-          <div>
-            <p class="text-xs uppercase tracking-wide text-charcoal/55">{map.addressLabel}</p>
-            <p class="mt-1 font-medium text-charcoal">{map.addressValue}</p>
-          </div>
-          <div>
-            <p class="text-xs uppercase tracking-wide text-charcoal/55">{map.hoursLabel}</p>
-            <p class="mt-1 font-medium text-charcoal">{map.hoursValue}</p>
-          </div>
-          <a
-            href={mapsUrl}
-            target="_blank"
-            rel="noopener"
-            class="inline-flex items-center gap-2 rounded-full bg-green-deep px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-green"
-          >
-            <Icon name="map" class="w-4 h-4" />
-            {map.openLabel}
-          </a>
+    <div class="reveal map-container mx-auto max-w-4xl shadow-lg">
+      <iframe
+        src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3803.926588422!2d120.7155353!3d18.5285706!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3389254c5574a46d%3A0xf1e2525a3b963752!2sBangui%20Windmills!5e0!3m2!1sen!2sph!4v1690000000000!5m2!1sen!2sph`}
+        title="Bangui Windmills — Google Maps"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+
+    <div class="reveal mt-8 text-center">
+      <div class="inline-flex flex-wrap items-center justify-center gap-4 rounded-2xl bg-turbine/50 px-6 py-4">
+        <div class="text-sm text-stone">
+          <strong class="text-navy">Address:</strong> {attraction.address}
         </div>
-      </div>
-
-      <div class="overflow-hidden rounded-2xl border border-gold/30 shadow-lg md:col-span-2">
-        <iframe
-          title={map.title}
-          src={mapsEmbedSrc}
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          class="h-72 w-full md:h-96"
-          style="border:0"
-          allowfullscreen
-        ></iframe>
+        <div class="hidden sm:block h-6 w-px bg-stone/30"></div>
+        <div class="text-sm text-stone">
+          <strong class="text-navy">Plus Code:</strong> <span class="font-mono">{attraction.plusCode}</span>
+        </div>
+        <div class="hidden sm:block h-6 w-px bg-stone/30"></div>
+        <a
+          href={mapsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-sm font-semibold text-ocean hover:underline"
+        >
+          Open in Google Maps →
+        </a>
       </div>
     </div>
   </div>
