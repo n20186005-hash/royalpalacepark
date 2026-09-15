@@ -1,6 +1,241 @@
 ---
-// Legacy layout stub — replaced by src/components/BaseLayout.astro
-// Kept for backward compatibility with old page files during migration
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import {
+  attraction,
+  govtTourismUrl,
+  landmarkNames,
+  mapsUrl,
+  ogLocale,
+  siteConfig,
+} from '../config';
+import { buildAlternates, htmlLangAttr, languagesList } from '../i18n/ui';
+
+interface Props {
+  lang: string;
+  messages: any;
+  path?: string;
+  robots?: string;
+}
+const { lang, messages, path = '', robots } = Astro.props;
+
+const title = messages.meta?.title ?? siteConfig.name;
+const description = messages.meta?.description ?? '';
+const ogTitle = messages.meta?.ogTitle ?? title;
+const ogDescription = messages.meta?.ogDescription ?? description;
+const heroImage = `${siteConfig.baseUrl}/gallery/royal-palace-park-1.jpg`;
+
+const basePath = path ? '/' + path.replace(/^\/+|\/+$/g, '') : '';
+const canonical = `${siteConfig.baseUrl}/${lang}${basePath}`;
+const url = `${siteConfig.baseUrl}/${lang}${basePath}`;
+const alternates = buildAlternates(path);
+const htmlLang = htmlLangAttr(lang);
+
+const attractionName = attraction.name[lang] ?? attraction.name.en;
+const altNames = [attraction.name.km, attraction.name.zh, attraction.name.en].filter(
+  (n, i, arr) => n && n !== attractionName && arr.indexOf(n) === i,
+);
+const addressValue = attraction.address[lang] ?? attraction.address.en;
+const landmarks = landmarkNames(lang);
+
+const faqItems = (messages.faq?.items ?? []).map((it: any) => ({
+  '@type': 'Question',
+  name: it.q,
+  acceptedAnswer: { '@type': 'Answer', text: it.a },
+}));
+
+/**
+ * 结构化数据（Schema.org / JSON-LD）——SEO 实体绑定
+ * 注意：评分与评价数（aggregateRating）仅作页面展示，不写入 JSON-LD，
+ * 避免被判定为自利性评论结构化数据（Google 结构化数据政策）。
+ */
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': ['TouristAttraction', 'Park', 'Place'],
+      '@id': `${siteConfig.baseUrl}/#attraction`,
+      name: attractionName,
+      alternateName: [...altNames, `${siteConfig.city} ${siteConfig.fullName}`],
+      description,
+      url,
+      image: [
+        `${siteConfig.baseUrl}/gallery/royal-palace-park-1.jpg`,
+        `${siteConfig.baseUrl}/gallery/royal-palace-park-2.jpg`,
+        `${siteConfig.baseUrl}/gallery/royal-palace-park-3.jpg`,
+      ],
+      isAccessibleForFree: true,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: siteConfig.streetAddress,
+        addressLocality: siteConfig.city,
+        addressRegion: siteConfig.region,
+        postalCode: siteConfig.postalCode,
+        addressCountry: siteConfig.countryCode,
+      },
+      geo: { '@type': 'GeoCoordinates', latitude: attraction.lat, longitude: attraction.lng },
+      hasMap: mapsUrl,
+      sameAs: [mapsUrl, govtTourismUrl, siteConfig.baseUrl],
+      containedInPlace: {
+        '@type': 'City',
+        name: siteConfig.city,
+        address: {
+          '@type': 'PostalAddress',
+          addressCountry: siteConfig.countryCode,
+        },
+      },
+      openingHoursSpecification: {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        opens: '06:00',
+        closes: '18:00',
+      },
+    },
+    // 周边核心地标集群（Landmarks & Attractions Around ...）
+    {
+      '@type': 'ItemList',
+      '@id': `${url}#nearby-landmarks`,
+      name: `Landmarks & attractions around ${siteConfig.fullName}`,
+      itemListElement: landmarks.map((name, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name,
+      })),
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${siteConfig.baseUrl}/#website`,
+      url: siteConfig.baseUrl,
+      name: siteConfig.fullName,
+      inLanguage: languagesList.map((l) => htmlLangAttr(l)),
+    },
+    {
+      '@type': 'WebPage',
+      '@id': `${url}#webpage`,
+      url,
+      name: title,
+      description,
+      inLanguage: htmlLang,
+      isPartOf: { '@id': `${siteConfig.baseUrl}/#website` },
+      about: { '@id': `${siteConfig.baseUrl}/#attraction` },
+      primaryImageOfPage: { '@id': `${siteConfig.baseUrl}/#hero-image` },
+    },
+    {
+      '@type': 'ImageObject',
+      '@id': `${siteConfig.baseUrl}/#hero-image`,
+      url: heroImage,
+      contentUrl: heroImage,
+      caption: `${siteConfig.fullName} in ${siteConfig.city}, ${siteConfig.country}`,
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${url}#breadcrumb`,
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: `${siteConfig.fullName} (${siteConfig.city})`,
+          item: url,
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: `${siteConfig.city}, ${siteConfig.country}`,
+          item: mapsUrl,
+        },
+      ],
+    },
+    ...(faqItems.length ? [{ '@type': 'FAQPage', '@id': `${url}#faq`, mainEntity: faqItems }] : []),
+  ],
+};
 ---
 
-<slot />
+<!doctype html>
+<html lang={htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {robots ? <meta name="robots" content={robots} /> : null}
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content={siteConfig.themeColor} />
+    <meta name="color-scheme" content="light" />
+
+    <!-- 地理实体元数据（本地搜索信号） -->
+    <meta name="geo.region" content={`${siteConfig.countryCode}-${siteConfig.region}`} />
+    <meta name="geo.placename" content={`${siteConfig.city}, ${siteConfig.country}`} />
+    <meta name="geo.position" content={`${attraction.lat};${attraction.lng}`} />
+    <meta name="ICBM" content={`${attraction.lat}, ${attraction.lng}`} />
+
+    <!-- PWA -->
+    <link rel="manifest" href={siteConfig.manifestPath} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content={siteConfig.shortName} />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    {
+      Object.entries(alternates).map(([h, href]) => (
+        <link
+          rel="alternate"
+          hreflang={h === 'xDefault' ? 'x-default' : htmlLangAttr(h)}
+          href={href}
+        />
+      ))
+    }
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={messages.header?.siteName ?? siteConfig.name} />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={ogDescription} />
+    <meta property="og:url" content={url} />
+    <meta property="og:image" content={heroImage} />
+    <meta property="og:image:alt" content={`${siteConfig.fullName} in ${siteConfig.city}`} />
+    <meta property="og:locale" content={ogLocale[lang] ?? lang} />
+    {
+      languagesList
+        .filter((l) => l !== lang)
+        .map((l) => <meta property="og:locale:alternate" content={ogLocale[l] ?? l} />)
+    }
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={ogTitle} />
+    <meta name="twitter:description" content={ogDescription} />
+    <meta name="twitter:image" content={heroImage} />
+    <meta name="twitter:image:alt" content={`${siteConfig.fullName} in ${siteConfig.city}`} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <!-- GA4 -->
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.ga4Id}`}></script>
+    <script is:inline define:vars={{ ga4Id: siteConfig.ga4Id }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', ga4Id, { anonymize_ip: true });
+    </script>
+  </head>
+  <body>
+    <a href="#main" class="skip-link">{messages.header?.skipToContent}</a>
+    <Header lang={lang} messages={messages} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer lang={lang} messages={messages} />
+
+    <script is:inline>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+          navigator.serviceWorker.register('/sw.js').catch(function () {});
+        });
+      }
+    </script>
+  </body>
+</html>

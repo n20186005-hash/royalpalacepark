@@ -1,0 +1,69 @@
+---
+import Icon from './Icon.astro';
+import { govtTourismUrl, officialLinks } from '../config';
+
+interface Props {
+  lang: string;
+  messages: any;
+}
+const { lang, messages } = Astro.props;
+const stew = messages.stewardship ?? {};
+const groups = stew.groups ?? [];
+---
+
+<section id="stewardship" class="scroll-mt-20 border-t border-gold/25 bg-sand/60 py-16 md:py-20">
+  <div class="mx-auto max-w-6xl px-4">
+    <p class="section-eyebrow">{stew.eyebrow}</p>
+    <h2 class="mt-2 font-serif text-3xl font-bold text-green-deep md:text-4xl">{stew.title}</h2>
+    {stew.subtitle && <p class="mt-3 max-w-3xl text-sm leading-relaxed text-charcoal/75">{stew.subtitle}</p>}
+    {stew.disclaimer && <p class="mt-2 text-xs leading-relaxed text-charcoal/55">{stew.disclaimer}</p>}
+
+    <div class="mt-8 grid gap-6 md:grid-cols-3">
+      {
+        groups.map((g: any) => (
+          <div class="glass-card rounded-2xl p-6">
+            <div class="flex items-center gap-2 text-green-deep">
+              <span class="flex h-10 w-10 items-center justify-center rounded-2xl bg-green-deep/10">
+                <Icon name={g.icon ?? 'book'} class="w-6 h-6" />
+              </span>
+              <h3 class="font-serif text-lg font-semibold text-charcoal">{g.title}</h3>
+            </div>
+            {g.intro && <p class="mt-3 text-sm leading-relaxed text-charcoal/75">{g.intro}</p>}
+            {g.items && g.items.length ? (
+              <ul class="mt-3 space-y-2 text-sm leading-relaxed text-charcoal/80">
+                {g.items.map((it: string) => (
+                  <li class="flex items-start gap-2"><Icon name="leaf" class="mt-1 w-4 h-4 shrink-0 text-gold-deep" />{it}</li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="mt-8 rounded-2xl border border-gold/30 bg-cream p-6">
+      <h3 class="flex items-center gap-2 font-serif text-lg font-semibold text-green-deep">
+        <Icon name="globe" class="w-5 h-5 text-gold" />
+        {stew.officialTitle}
+      </h3>
+      {stew.officialIntro && <p class="mt-2 text-sm leading-relaxed text-charcoal/75">{stew.officialIntro}</p>}
+      <ul class="mt-4 grid gap-2 md:grid-cols-3">
+        {
+          officialLinks.map((link: any) => (
+            <li>
+              <a
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center gap-2 rounded-xl bg-white/60 px-3 py-2 text-sm text-charcoal/80 ring-1 ring-gold/20 transition hover:bg-white hover:text-green-deep"
+              >
+                <Icon name="link" class="w-4 h-4 text-gold-deep" />
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>

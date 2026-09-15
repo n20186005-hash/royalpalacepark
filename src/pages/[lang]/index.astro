@@ -1,10 +1,66 @@
 ---
-// Legacy redirect — no longer generates pages (single-language site)
+// Hybrid 模式：Weather.astro 服务器端 fetch Open-Meteo API，
+// 因此本页必须 SSR，导出 prerender = false，
+// 其它静态部分（HTML/CSS/资源）仍由 Astro 编译优化。
+export const prerender = false;
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import InfoCard from '../../components/InfoCard.astro';
+import Intro from '../../components/Intro.astro';
+import History from '../../components/History.astro';
+import Architecture from '../../components/Architecture.astro';
+import GuideSection from '../../components/GuideSection.astro';
+import VisitorEssentials from '../../components/VisitorEssentials.astro';
+import Weather from '../../components/Weather.astro';
+import SeasonStrategy from '../../components/SeasonStrategy.astro';
+import AudienceRoutes from '../../components/AudienceRoutes.astro';
+import Itinerary from '../../components/Itinerary.astro';
+import BestTime from '../../components/BestTime.astro';
+import Transport from '../../components/Transport.astro';
+import Facilities from '../../components/Facilities.astro';
+import Stewardship from '../../components/Stewardship.astro';
+import Safety from '../../components/Safety.astro';
+import Gallery from '../../components/Gallery.astro';
+import Reviews from '../../components/Reviews.astro';
+import MapSection from '../../components/MapSection.astro';
+import Nearby from '../../components/Nearby.astro';
+import FAQ from '../../components/FAQ.astro';
+import Sources from '../../components/Sources.astro';
+import { ui } from '../../i18n/ui';
+
 export function getStaticPaths() {
-  return [];
+  return (['km', 'en', 'zh'] as const).map((lang) => ({
+    params: { lang },
+    props: { lang },
+  }));
 }
-const destination = '/';
+
+const { lang } = Astro.props;
+const messages = ui[lang];
 ---
-<meta http-equiv="refresh" content={`0;url=${destination}`} />
-<script is:inline>window.location.href = '/';</script>
-<p>Redirecting to <a href="/">Bangui Windmills</a>...</p>
+
+<BaseLayout lang={lang} messages={messages}>
+  <Hero lang={lang} messages={messages} />
+  <InfoCard lang={lang} messages={messages} />
+  <Intro lang={lang} messages={messages} />
+  <History lang={lang} messages={messages} />
+  <Architecture lang={lang} messages={messages} />
+  <GuideSection lang={lang} messages={messages} />
+  <VisitorEssentials lang={lang} messages={messages} />
+  <Weather lang={lang} messages={messages} />
+  <SeasonStrategy lang={lang} messages={messages} />
+  <AudienceRoutes lang={lang} messages={messages} />
+  <Itinerary lang={lang} messages={messages} />
+  <BestTime lang={lang} messages={messages} />
+  <Transport lang={lang} messages={messages} />
+  <Facilities lang={lang} messages={messages} />
+  <Stewardship lang={lang} messages={messages} />
+  <Safety lang={lang} messages={messages} />
+  <Gallery lang={lang} messages={messages} />
+  <Reviews lang={lang} messages={messages} />
+  <MapSection lang={lang} messages={messages} />
+  <Nearby lang={lang} messages={messages} />
+  <FAQ lang={lang} messages={messages} />
+  <Sources lang={lang} messages={messages} />
+</BaseLayout>

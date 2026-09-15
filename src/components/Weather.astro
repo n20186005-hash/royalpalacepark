@@ -1,0 +1,567 @@
+---
+import Icon from './Icon.astro';
+import { attraction, siteConfig } from '../config';
+
+interface Props {
+  lang: string;
+  messages: any;
+}
+const { lang, messages } = Astro.props;
+const weather = messages.weather ?? {};
+const T = (key: string, fallback?: string) => {
+  const parts = key.split('.');
+  let node: any = weather;
+  for (const p of parts) {
+    if (node == null) break;
+    node = node[p];
+  }
+  if (typeof node === 'string' && node.length) return node;
+  return fallback ?? '';
+};
+
+const CACHE_TTL_MS = 15 * 60 * 1000;
+type WeatherPayload = any;
+let cached: { at: number; payload: WeatherPayload } | null = null;
+
+async function fetchWeather(): Promise<WeatherPayload> {
+  const now = Date.now();
+  if (cached && now - cached.at < CACHE_TTL_MS) return cached.payload;
+
+  const params = new URLSearchParams({
+    latitude: String(attraction.lat),
+    longitude: String(attraction.lng),
+    current: [
+      'temperature_2m',
+      'apparent_temperature',
+      'relative_humidity_2m',
+      'precipitation',
+      'weather_code',
+      'wind_speed_10m',
+      'wind_gusts_10m',
+      'uv_index',
+      'is_day',
+    ].join(','),
+    daily: [
+      'temperature_2m_max',
+      'temperature_2m_min',
+      'precipitation_probability_max',
+      'precipitation_sum',
+      'weather_code',
+      'wind_speed_10m_max',
+      'uv_index_max',
+      'sunrise',
+      'sunset',
+    ].join(','),
+    forecast_days: '7',
+    timezone: 'auto',
+  });
+
+  const url = `https://api.open-meteo.com/v1/forecast?${params.toString()}`;
+  try {
+    const res = await fetch(url, {
+      headers: { Accept: 'application/json' },
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const payload = await res.json();
+    cached = { at: now, payload };
+    return payload;
+  } catch (_) {
+    return null;
+  }
+}
+
+const data = await fetchWeather();
+const current = data?.current ?? null;
+const daily = data?.daily ?? null;
+
+/* ---------- WMO 解码 ---------- */
+function decodeWMO(code: number | null | undefined) {
+  const c = Number(code);
+  const L = (zh: string, en: string, km: string) => (lang === 'zh' ? zh : lang === 'km' ? km : en);
+  if (c === 0) return { icon: 'sun', cls: 'clear', label: L('晴朗', 'Clear', 'ពន្លឺថ្ងៃ') };
+  if (c <= 2) return { icon: 'sun', cls: 'mostly-clear', label: L('大部晴朗', 'Mostly clear', 'ពន្លឺថ្ងៃភាគច្រើន') };
+  if (c <= 3) return { icon: 'cloud', cls: 'cloudy', label: L('多云', 'Cloudy', 'ពពក') };
+  if (c <= 48) return { icon: 'cloud', cls: 'fog', label: L('有雾', 'Foggy', 'អ័ព្ទ') };
+  if (c <= 55) return { icon: 'rain', cls: 'drizzle', label: L('毛毛雨', 'Drizzle', 'ភ្លៀងធំ') };
+  if (c <= 57) return { icon: 'rain', cls: 'freeze-drizzle', label: L('冻毛毛雨', 'Freezing drizzle', 'ភ្លៀងកក់') };
+  if (c <= 65) return { icon: 'rain', cls: 'rain', label: L('有雨', 'Rain', 'ភ្លៀង') };
+  if (c <= 67) return { icon: 'rain', cls: 'heavy-rain', label: L('大雨', 'Heavy rain', 'ភ្លៀងធ្លាក់ខ្លាំង') };
+  if (c <= 77) return { icon: 'snow', cls: 'snow', label: L('雪', 'Snow', 'ព្រិល') };
+  if (c <= 80) return { icon: 'rain', cls: 'showers-light', label: L('小雨', 'Light showers', 'ភ្លៀងធ្លាក់បន្តិច') };
+  if (c <= 81) return { icon: 'rain', cls: 'showers', label: L('阵雨', 'Showers', 'ភ្លៀងធ្លាក់') };
+  if (c <= 82) return { icon: 'rain', cls: 'showers-heavy', label: L('强阵雨', 'Heavy showers', 'ភ្លៀងធ្លាក់ខ្លាំង') };
+  if (c <= 86) return { icon: 'snow', cls: 'snow-showers', label: L('阵雪', 'Snow showers', 'ព្រិលធ្លាក់') };
+  if (c <= 90) return { icon: 'snow', cls: 'snow-heavy', label: L('大雪', 'Heavy snow', 'ព្រិលធ្លាក់ខ្លាំង') };
+  if (c <= 94) return { icon: 'rain', cls: 'thunder-light', label: L('雷阵雨', 'Thunder showers', 'ផ្គររន្ទះ') };
+  if (c <= 95) return { icon: 'rain', cls: 'thunder', label: L('雷暴雨', 'Thunderstorm', 'ផ្គររន្ទះខ្លាំង') };
+  if (c <= 99) return { icon: 'rain', cls: 'thunder-hail', label: L('雷暴冰雹', 'Thunderstorm with hail', 'ផ្គររន្ទះនឹងកាំរស្មីទឹកកក') };
+  return { icon: 'cloud', cls: 'unknown', label: L('未知', 'Unknown', 'មិនស្គាល់') };
+}
+
+/* ---------- 建议引擎（输出结构化块，空数组则不渲染对应块） ---------- */
+interface Advice {
+  outfit: string[];
+  plan: string[];
+  carry: string[];
+  risk: string[];
+}
+
+const L = (zh: string, en: string, km: string) => (lang === 'zh' ? zh : lang === 'km' ? km : en);
+
+function buildAdvice(cur: any, day: any): Advice {
+  const outfit: string[] = [];
+  const plan: string[] = [];
+  const carry: string[] = [];
+  const risk: string[] = [];
+
+  const temp = Number(cur?.temperature_2m ?? day?.temperature_2m_max ?? 28);
+  const feels = Number(cur?.apparent_temperature ?? temp);
+  const hi = Number(day?.temperature_2m_max ?? temp);
+  const lo = Number(day?.temperature_2m_min ?? temp - 3);
+  const diff = Math.max(0, hi - lo);
+  const humidity = Number(cur?.relative_humidity_2m ?? 70);
+  const precipMm = Number(cur?.precipitation ?? day?.precipitation_sum ?? 0);
+  const precipPct = Number(day?.precipitation_probability_max ?? 0);
+  const code = Number(cur?.weather_code ?? day?.weather_code ?? 1);
+  const windKmh = Number(cur?.wind_speed_10m ?? day?.wind_speed_10m_max ?? 0);
+  const windGust = Number(cur?.wind_gusts_10m ?? windKmh * 1.3);
+  const uv = Math.max(0, Number(cur?.uv_index ?? day?.uv_index_max ?? 0));
+  const wmo = decodeWMO(code);
+
+  /* === 最高优先级：气象预警类（雷暴/冰雹/浓雾+大风/强降水） === */
+  if (wmo.cls.startsWith('thunder')) {
+    risk.push(
+      L(
+        '谨防雷电，不要在河边礁石、露天步道、树下避雨；游船与露天项目大概率关闭。',
+        'Beware of lightning — avoid riverbanks, open lawns and trees under rain. Ferries and open-air sites may close.',
+        'ប្រុងប្រយ័ត្នការផ្គររន្ទះ កុំឲ្យនៅក្បែរច្រាំងទឹក ឬនៅក្រោមដើមឈើ កប៉ាល់អាចជិះបិទ។',
+      ),
+    );
+  }
+  if (wmo.cls === 'fog' || wmo.cls.startsWith('freeze')) {
+    risk.push(
+      L(
+        '能见度较差，沿河观景效果不佳；轮渡易延误，通行多留心。',
+        'Visibility is limited. River views are weaker; ferry delays are possible.',
+        'ចក្ខុវិស័យមិនច្បាស់ ទេសភាពមិនសូវល្អ កប៉ាល់អាចមានការពន្យាពេល។',
+      ),
+    );
+  }
+  if (precipMm >= 10 || precipPct >= 85) {
+    risk.push(
+      L(
+        '降雨较强，沿河低洼步道、洞口与石阶易积水；避开山谷与排水不畅的路段。',
+        'Heavy rain expected — low-lying riverside paths and stone steps can flood; avoid drains and depressions.',
+        'ភ្លៀងធ្លាក់ខ្លាំង ផ្លូវនៅក្បែរទឹកនិងជណ្តើរអាចជន់លិច។',
+      ),
+    );
+  }
+  if (windGust >= 45 || windKmh >= 38) {
+    risk.push(
+      L(
+        '大风天气，远离河岸礁石、施工围挡与广告牌；河滨临时摊位可能撤场。',
+        'Strong winds — stay away from river rocks, hoardings and billboards. Riverside stalls may close early.',
+        'ខ្យល់បក់ខ្លាំង សូមឆ្ងាយពីថ្មច្រាំងទឹក និងផ្ទាំងផ្សាយពាណិជ្ជកម្ម។',
+      ),
+    );
+  }
+
+  /* === 穿搭/出行建议 === */
+  if (hi >= 34 || (feels >= 36 && humidity >= 65)) {
+    outfit.push(
+      L(
+        '体感炎热，穿轻薄透气的浅色衣物；如进入宫殿/寺庙，备一件能遮盖肩膝的薄外套或披肩。',
+        'Feels very hot — choose light, breathable pale clothes. Bring a thin shawl or wrap for shoulders/knees inside palace/temple areas.',
+        'អាកាសក្តៅខ្លាំង ពាក់សម្លៀកបំពាក់ស្ដើង ហើយយកអាវគំរបសម្រាប់ក្នុងព្រះបរមរាជវាំង។',
+      ),
+    );
+  } else if (hi >= 30) {
+    outfit.push(
+      L(
+        '气温偏高，穿轻薄透气短袖；进入宗教区域建议随身带披肩。',
+        'Warm to hot — light T-shirts and breathable fabrics. Carry a wrap for religious/royal areas.',
+        'សីតុណ្ហភាពក្តៅ ពាក់អាវខ្លី ស្ដើង។ យកអាវគំរបសម្រាប់កន្លែងសាសនា។',
+      ),
+    );
+  } else if (lo <= 20) {
+    outfit.push(
+      L(
+        '早晚偏凉，随身加一件薄外套。',
+        'Cool mornings/evenings — bring a light outer layer.',
+        'ពេលព្រឹក យប់ ត្រជាក់បន្តិច យកអាវផ្ទាល់ខ្លួន។',
+      ),
+    );
+  }
+  if (diff >= 8) {
+    outfit.push(
+      L(
+        '昼夜温差大，分层穿方便增减。',
+        'Large day-night temperature difference — dress in layers.',
+        'សីតុណ្ហភាពថ្ងៃយប់ខុសគ្នាច្រើន ស្លៀកជាស្រទាប់។',
+      ),
+    );
+  }
+  if (wmo.cls === 'rain' || wmo.cls.startsWith('showers') || wmo.cls === 'heavy-rain' || wmo.cls.startsWith('thunder')) {
+    outfit.push(
+      L(
+        '雨时体感微凉，穿防水或易干的衣物。',
+        'Rain cools things down — water-resistant or quick-dry clothing.',
+        'ភ្លៀងធ្លាក់ ពាក់សម្លៀកបំពាក់ ជ័រ ឬ ស្ងួតលឿន។',
+      ),
+    );
+  }
+
+  /* === 游玩安排 === */
+  // 雨 / 雷暴
+  if (precipPct >= 60 || precipMm >= 2) {
+    plan.push(
+      L(
+        '大概率有雨，行程尽量保留室内备选（国家博物馆/画廊/咖啡馆）；户外长走建议推迟到雨停。',
+        'Rain is likely — keep indoor options open (museum, galleries, cafés). Delay long outdoor walks if it pours.',
+        'មានទំនោរភ្លៀង ខ្លួនមានផែនការក្នុងផ្ទះជំនួស (សារមន្ទីរ កាហ្វេ)។',
+      ),
+    );
+  }
+  if (precipMm >= 5 || wmo.cls.startsWith('showers') || wmo.cls === 'heavy-rain') {
+    plan.push(
+      L(
+        '露天项目与河滨渡轮/游船体验较差，可能临时停运。',
+        'Outdoor sites and river ferries may be poorer or suspended in the rain.',
+        'កម្មវិធីបើកទូលាយ និងកប៉ាល់ទន្លេអាចបិទជាបណ្តោះអាសន្ន។',
+      ),
+    );
+  }
+  // 高温 & 热岛（金边城市热岛明显）
+  if (hi >= 34 || feels >= 37) {
+    plan.push(
+      L(
+        '尽量避开 11:00–15:00 的市中心暴晒时段；把长走安排在上午或傍晚河滨。',
+        'Avoid 11 am – 3 pm heat in the city centre; keep long walks for morning or late-afternoon riverside.',
+        'ចៀសវាងម៉ោង 11:00-15:00 ដើរច្រើននៅតាមផ្លូវធំ។ ជ្រើសរើសពេលព្រឹក ឬ ល្ងាចនៅច្រាំងទន្លេ។',
+      ),
+    );
+    plan.push(
+      L(
+        '中午插入室内文化点或商场/咖啡馆作为避暑缓冲。',
+        'Use midday for indoor cultural stops, malls or cafés to escape the heat.',
+        'ពេលថ្ងៃត្រង់ សំរាកក្នុងផ្ទះ (សារមន្ទីរ ផ្សារ ឬកាហ្វេ) ឲ្យត្រជាក់។',
+      ),
+    );
+  } else if (hi >= 30) {
+    plan.push(
+      L(
+        '户外时段优先 08:00 前或 16:00 后，正午多补水和休息。',
+        'Prefer outdoor time before 8 am or after 4 pm; hydrate and rest through noon.',
+        'ជ្រើសរើសពេលមុន 8 នាទី ពីក្រោយ 4 រសៀលដើរខ្លុីង។ ផឹកទឹកញឹកញាប់។',
+      ),
+    );
+  }
+  // 大风（河滨游船/热气球类）
+  if (windKmh >= 25) {
+    plan.push(
+      L(
+        '河滨游船与部分露天娱乐项目可能停航，出发前确认当天运营。',
+        'Riverside ferries and some open-air rides may suspend. Confirm operations before you go.',
+        'កប៉ាល់នៅច្រាំងទន្លេអាចបិទ។ សូមពិនិត្យមុនចេញដំណើរ។',
+      ),
+    );
+  }
+  // 晴朗 → 河滨日落最佳
+  if (wmo.cls === 'clear' || wmo.cls === 'mostly-clear') {
+    plan.push(
+      L(
+        '天气晴好，适合户外漫步；傍晚河滨的落日与蓝调时段出片效果极佳。',
+        'Clear skies — great for an outdoor stroll. Riverside sunset/blue hour is ideal for photos.',
+        'អាកាសល្អ សមរម្យដើរខ្លុីងនៅខាងក្រៅ។ ពេលថ្ងៃលិចនៅច្រាំងទន្លេ ថតរូបស្អាតខ្លាំង។',
+      ),
+    );
+  }
+  if (wmo.cls === 'cloudy' || wmo.cls === 'fog') {
+    plan.push(
+      L(
+        '阴天光线柔和，适合长时间户外逛游与街拍。',
+        'Cloudy = soft light. Good for long outdoor walks and street photography.',
+        'មានពពក ពន្លឺទន់ សម្រាប់ដើរយូរ និងថតរូបតាមផ្លូវ។',
+      ),
+    );
+  }
+
+  /* === 随身物品（条件不满足则完全不显示，避免堆积） === */
+  // 雨
+  if (precipPct >= 60 || wmo.cls.startsWith('showers') || wmo.cls === 'rain' || wmo.cls === 'heavy-rain' || wmo.cls.startsWith('thunder')) {
+    carry.push(
+      L('雨伞或轻薄雨衣', 'Umbrella or a light raincoat', 'ឆ័ត្រ ឬ អាវប៉ូវភ្លៀងស្ដើង'),
+    );
+  }
+  if (windKmh >= 25 && (precipPct >= 60 || precipMm >= 2)) {
+    carry.push(
+      L('风大优先雨衣，不建议长柄雨伞', 'Windy — prefer a raincoat over a long umbrella', 'ខ្យល់ខ្លាំង ប្រើអាវប៉ូវជាជាងឆ័ត្រវែង'),
+    );
+  }
+  // 防晒 & 热
+  if (uv >= 5 || hi >= 30 || wmo.cls === 'clear' || wmo.cls === 'mostly-clear') {
+    carry.push(L('防晒霜、墨镜、遮阳帽', 'Sunscreen, sunglasses, sunhat', 'ឡេការពារកម្តៅថ្ងៃ វ៉ែនតា មួក'));
+  }
+  if (uv >= 8) {
+    carry.push(
+      L('紫外线很强，防晒用品选 PA++++/SPF50+ 级别', 'Very strong UV — use SPF50+/PA++++ sun care', 'កាំរស្មីយូវីខ្លាំងណាស់ ប្រើឡេ SPF50+ / PA++++'),
+    );
+  }
+  if (hi >= 30 || feels >= 32 || humidity >= 75) {
+    carry.push(L('充足饮用水（可重复使用水瓶最佳）', 'Plenty of drinking water — reusable bottle is best', 'ទឹកផឹកឲ្យបាន (ដបដែលប្រើបានហ្រ្វាំង ល្អបំផុត)'));
+  }
+  if (hi >= 34) {
+    carry.push(
+      L('清凉喷雾/湿巾、备用口罩（热岛+粉尘）', 'Cooling mist or wet wipes + a spare mask (heat + dust)', 'ស្ព្រៃដើមឈើ ឬ កន្សែងសើម + ម៉ាសបម្រុង (ក្តៅ + ធូលី)'),
+    );
+  }
+  // 雨 + 寺庙
+  if (precipPct >= 60 || precipMm >= 2) {
+    carry.push(L('防滑鞋（台阶与石板路湿滑）', 'Non-slip shoes (wet stone steps)', 'ស្បែកជើងកៅស៊ូ (ជណ្តើរ ថ្ម សើម)'));
+  }
+  // 早晚凉
+  if (lo <= 22 || diff >= 8) {
+    carry.push(L('轻薄外套或披肩（空调房与早晚）', 'Light jacket or wrap for AC rooms & mornings/nights', 'អាវផ្ទាល់ខ្លួន ស្ដើង ឬ អាវគំរប (បន្ទប់ក空调 ព្រឹក យប់)'));
+  }
+  // 河边场景（金边靠近 Tonle Sap / Mekong）：无论是否有风，默认给点提示
+  if (windKmh >= 20) {
+    carry.push(L('帽子请系好帽绳或选择不易被风吹落的款式', 'Hat with strap or a style that won\'t blow off', 'មួកមានខ្សែរ ជម្រើសម៉ូដមិនងាយខ្យល់បក់ធ្លាក់'));
+  }
+
+  return { outfit, plan, carry, risk };
+}
+
+/* ---------- 基础数据聚合 ---------- */
+const currentInfo = current ? {
+  tempC: Math.round(Number(current.temperature_2m)),
+  feelsC: Math.round(Number(current.apparent_temperature)),
+  humidity: Math.round(Number(current.relative_humidity_2m)),
+  rainMM: Number(current.precipitation ?? 0),
+  windKmh: Math.round(Number(current.wind_speed_10m)),
+  uv: Math.round(Number(current.uv_index ?? 0) * 10) / 10,
+  wmo: decodeWMO(current.weather_code),
+  isDay: Number(current.is_day) === 1,
+} : null;
+
+const today = daily && Array.isArray(daily.time) ? {
+  maxC: Math.round(Number(daily.temperature_2m_max?.[0] ?? 28)),
+  minC: Math.round(Number(daily.temperature_2m_min?.[0] ?? 24)),
+  rainPct: Math.round(Number(daily.precipitation_probability_max?.[0] ?? 0)),
+  rainSum: Number(daily.precipitation_sum?.[0] ?? 0),
+  windMax: Math.round(Number(daily.wind_speed_10m_max?.[0] ?? 0)),
+  uvMax: Math.round(Number(daily.uv_index_max?.[0] ?? 0) * 10) / 10,
+} : null;
+
+const advice: Advice = buildAdvice(current, today);
+
+const days = [];
+if (daily && Array.isArray(daily.time)) {
+  const len = Math.min(7, daily.time.length);
+  for (let i = 0; i < len; i++) {
+    const t = new Date(daily.time[i]);
+    const dayLabel = t.toLocaleDateString(
+      lang === 'zh' ? 'zh-CN' : lang === 'km' ? 'km-KH' : 'en-US',
+      { weekday: 'short', month: 'short', day: 'numeric' },
+    );
+    const code = Number(daily.weather_code?.[i]);
+    const wmo = decodeWMO(code);
+    days.push({
+      dayLabel,
+      wmo,
+      maxC: Math.round(Number(daily.temperature_2m_max?.[i])),
+      minC: Math.round(Number(daily.temperature_2m_min?.[i])),
+      rainPct: Math.round(Number(daily.precipitation_probability_max?.[i] ?? 0)),
+      windMax: Math.round(Number(daily.wind_speed_10m_max?.[i] ?? 0)),
+    });
+  }
+}
+
+const lastUpdated = (() => {
+  const now = new Date();
+  if (lang === 'zh') return `${now.getMonth() + 1}月${now.getDate()}日 ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+  if (lang === 'km') return now.toLocaleString('km-KH');
+  return now.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+})();
+
+const uvHint = (uv: number) => {
+  if (uv >= 10) return L('紫外线极强', 'Extreme UV', 'កាំរស្មីយូវីខ្លាំងណាស់');
+  if (uv >= 8) return L('紫外线很强', 'Very strong UV', 'កាំរស្មីយូវីខ្លាំងណាស់');
+  if (uv >= 6) return L('紫外线强', 'Strong UV', 'កាំរស្មីយូវីខ្លាំង');
+  if (uv >= 5) return L('紫外线中等', 'Moderate UV', 'កាំរស្មីយូវី មធ្យម');
+  if (uv >= 3) return L('紫外线较弱', 'Mild UV', 'កាំរស្មីយូវី ទាប');
+  return '';
+};
+---
+
+<section id="weather" class="scroll-mt-20 bg-sand/60 py-16 md:py-24">
+  <div class="mx-auto max-w-6xl px-4">
+    <p class="section-eyebrow">{T('eyebrow', (lang === 'zh' ? '当地天气' : lang === 'km' ? 'អាកាសធាតុ' : 'Weather & tips'))}</p>
+    <h2 class="mt-2 font-serif text-3xl font-bold text-green-deep md:text-4xl">
+      {T('title', (lang === 'zh' ? '金边王宫区域天气与出行建议' : lang === 'km' ? 'អាកាសធាតុ និងដំបូន្មានទៅលេងតំបន់ព្រះបរមរាជវាំង' : 'Weather & visit tips around the Royal Palace'))}
+    </h2>
+    {weather.subtitle && <p class="mt-3 max-w-2xl text-sm leading-relaxed text-charcoal/75">{weather.subtitle}</p>}
+
+    {
+      !currentInfo && !days.length ? (
+        <div class="mt-8 rounded-2xl border border-gold/30 bg-cream p-6 text-sm text-charcoal/70">
+          {T('fallback', (lang === 'zh' ? '暂无实时数据，请稍后再查看。' : lang === 'km' ? 'មិនមានទិន្នន័យជាក់ស្តែង សូមក្រឡេកមើលនៅពេលក្រោយ។' : 'Live data is currently unavailable. Please check back later.'))}
+        </div>
+      ) : (
+        <div class="mt-8 grid gap-6">
+          {/* 第一行：当前 + 风险（风险置顶，有则整行红条，没有则整块不显示） */}
+          {
+            advice.risk.length ? (
+              <div class="rounded-2xl border border-red-500/40 bg-red-50/80 p-5 ring-1 ring-red-500/20">
+                <div class="flex items-start gap-3">
+                  <div class="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-red-500/15 text-red-700">
+                    <Icon name="shield" class="h-5 w-5" />
+                  </div>
+                  <div>
+                    <p class="text-sm font-semibold text-red-800">{T('riskTitle', (lang === 'zh' ? '风险提醒' : lang === 'km' ? 'ការព្រមានហានិភ័យ' : 'Risk advisory'))}</p>
+                    <ul class="mt-2 space-y-1.5 text-sm leading-relaxed text-red-900/85">
+                      {advice.risk.map((r) => (
+                        <li class="flex items-start gap-2"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-red-500" />{r}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            ) : null
+          }
+
+          {/* 第二行：左当前天气卡 + 右三栏建议卡 */}
+          <div class="grid gap-6 lg:grid-cols-5">
+            <div class="glass-card rounded-2xl p-6 lg:col-span-2">
+              {
+                currentInfo ? (
+                  <>
+                    <div class="flex items-center justify-between">
+                      <p class="text-xs uppercase tracking-wide text-charcoal/55">{T('currentLabel', (lang === 'zh' ? '现在' : lang === 'km' ? 'បច្ចុប្បន្ន' : 'Now'))}</p>
+                      <span class={`inline-flex items-center gap-1 rounded-full px-2 py-1 text-[0.7rem] ${currentInfo.isDay ? 'bg-sky/10 text-sky-deep' : 'bg-ocean/10 text-ocean'}`}>
+                        <Icon name={currentInfo.isDay ? 'sun' : 'moon'} class="h-3.5 w-3.5" />
+                        {currentInfo.isDay ? (lang === 'zh' ? '白天' : lang === 'km' ? 'ថ្ងៃ' : 'Daytime') : (lang === 'zh' ? '夜晚' : lang === 'km' ? 'យប់' : 'Nighttime')}
+                      </span>
+                    </div>
+                    <div class="mt-4 flex items-center gap-4">
+                      <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-green-deep/10 text-green-deep">
+                        <Icon name={currentInfo.wmo.icon} class="h-9 w-9" />
+                      </div>
+                      <div>
+                        <p class="font-serif text-4xl font-bold text-charcoal">{currentInfo.tempC}<span class="text-xl font-semibold text-charcoal/55">°C</span></p>
+                        <p class="mt-1 text-sm text-charcoal/70">{currentInfo.wmo.label} · {T('feels', (lang === 'zh' ? '体感' : lang === 'km' ? 'អារម្មណ៍' : 'Feels like'))} {currentInfo.feelsC}°C</p>
+                      </div>
+                    </div>
+                    <dl class="mt-5 grid grid-cols-2 gap-3 text-center text-xs sm:grid-cols-4">
+                      <div class="rounded-xl bg-sand/60 p-3">
+                        <dt class="text-charcoal/55">{T('humidity', (lang === 'zh' ? '湿度' : lang === 'km' ? 'សំណើម' : 'Humidity'))}</dt>
+                        <dd class="mt-1 text-sm font-semibold text-green-deep">{currentInfo.humidity}%</dd>
+                      </div>
+                      <div class="rounded-xl bg-sand/60 p-3">
+                        <dt class="text-charcoal/55">{T('rain', (lang === 'zh' ? '降雨' : lang === 'km' ? 'ភ្លៀង' : 'Rain'))}</dt>
+                        <dd class="mt-1 text-sm font-semibold text-green-deep">{currentInfo.rainMM.toFixed(1)}<span class="text-[0.7rem] text-charcoal/50">mm</span></dd>
+                      </div>
+                      <div class="rounded-xl bg-sand/60 p-3">
+                        <dt class="text-charcoal/55">{T('wind', (lang === 'zh' ? '风速' : lang === 'km' ? 'ខ្យល់' : 'Wind'))}</dt>
+                        <dd class="mt-1 text-sm font-semibold text-green-deep">{currentInfo.windKmh}<span class="text-[0.7rem] text-charcoal/50">km/h</span></dd>
+                      </div>
+                      <div class="rounded-xl bg-sand/60 p-3">
+                        <dt class="text-charcoal/55">{T('uv', (lang === 'zh' ? '紫外线' : lang === 'km' ? 'កាំរស្មីយូវី' : 'UV'))}</dt>
+                        <dd class="mt-1 text-sm font-semibold text-green-deep">{currentInfo.uv}<span class="block text-[0.7rem] text-charcoal/50">{uvHint(currentInfo.uv)}</span></dd>
+                      </div>
+                    </dl>
+                    {
+                      today ? (
+                        <div class="mt-4 flex flex-wrap items-center gap-2 text-[0.75rem] text-charcoal/70">
+                          <span class="inline-flex items-center gap-1 rounded-full bg-gold/15 px-2 py-1 text-gold-deep">{T('todayRange', (lang === 'zh' ? '今日' : lang === 'km' ? 'ថ្ងៃនេះ' : 'Today'))} {today.minC}–{today.maxC}°C</span>
+                          <span class="inline-flex items-center gap-1 rounded-full bg-sky/10 px-2 py-1 text-sky-deep"><Icon name="rain" class="h-3 w-3" />{T('rainChance', (lang === 'zh' ? '降水概率' : lang === 'km' ? 'ទំនោរភ្លៀង' : 'Chance of rain'))} {today.rainPct}%</span>
+                          {today.uvMax ? <span class="inline-flex items-center gap-1 rounded-full bg-orange-100 px-2 py-1 text-orange-700">{T('uvToday', (lang === 'zh' ? '今日最强 UV' : lang === 'km' ? 'UV ខ្លាំងបំផុត' : 'Peak UV today'))} {today.uvMax}</span> : null}
+                          {today.windMax ? <span class="inline-flex items-center gap-1 rounded-full bg-green-deep/10 px-2 py-1 text-green-deep">{T('windMax', (lang === 'zh' ? '最大阵风' : lang === 'km' ? 'ខ្យល់បក់ខ្លាំងបំផុត' : 'Max wind'))} {today.windMax}km/h</span> : null}
+                        </div>
+                      ) : null
+                    }
+                  </>
+                ) : null
+              }
+              <p class="mt-4 text-[0.7rem] text-charcoal/50">{T('updated', (lang === 'zh' ? '更新于' : lang === 'km' ? 'ថ្មីៗនេះ' : 'Updated'))} {lastUpdated} · {siteConfig.city}</p>
+            </div>
+
+            {/* 三栏建议：出行穿搭 / 游玩安排 / 随身物品 —— 空则整块不渲染 */}
+            <div class="grid gap-4 lg:col-span-3 sm:grid-cols-3">
+              {
+                advice.outfit.length ? (
+                  <div class="rounded-2xl border border-gold/25 bg-cream/85 p-5">
+                    <div class="flex items-center gap-2">
+                      <div class="flex h-8 w-8 items-center justify-center rounded-xl bg-pink-100 text-pink-700"><Icon name="check" class="h-4 w-4" /></div>
+                      <p class="text-sm font-semibold text-charcoal">{T('blocks.outfit.title', (lang === 'zh' ? '出行穿搭' : lang === 'km' ? 'របៀបស្លៀក' : 'What to wear'))}</p>
+                    </div>
+                    <ul class="mt-3 space-y-1.5 text-[0.85rem] leading-relaxed text-charcoal/80">
+                      {advice.outfit.map((s) => <li class="flex items-start gap-2"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-pink-400" />{s}</li>)}
+                    </ul>
+                  </div>
+                ) : null
+              }
+              {
+                advice.plan.length ? (
+                  <div class="rounded-2xl border border-gold/25 bg-cream/85 p-5">
+                    <div class="flex items-center gap-2">
+                      <div class="flex h-8 w-8 items-center justify-center rounded-xl bg-sky/15 text-sky-deep"><Icon name="map" class="h-4 w-4" /></div>
+                      <p class="text-sm font-semibold text-charcoal">{T('blocks.plan.title', (lang === 'zh' ? '游玩安排' : lang === 'km' ? 'ផែនការទៅលេង' : 'Plan your visit'))}</p>
+                    </div>
+                    <ul class="mt-3 space-y-1.5 text-[0.85rem] leading-relaxed text-charcoal/80">
+                      {advice.plan.map((s) => <li class="flex items-start gap-2"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-sky-500/80" />{s}</li>)}
+                    </ul>
+                  </div>
+                ) : null
+              }
+              {
+                advice.carry.length ? (
+                  <div class="rounded-2xl border border-gold/25 bg-cream/85 p-5">
+                    <div class="flex items-center gap-2">
+                      <div class="flex h-8 w-8 items-center justify-center rounded-xl bg-green-deep/10 text-green-deep"><Icon name="medical" class="h-4 w-4" /></div>
+                      <p class="text-sm font-semibold text-charcoal">{T('blocks.carry.title', (lang === 'zh' ? '随身物品' : lang === 'km' ? 'វត្ថុធ្វើដំណើរ' : 'Pack these'))}</p>
+                    </div>
+                    <ul class="mt-3 space-y-1.5 text-[0.85rem] leading-relaxed text-charcoal/80">
+                      {advice.carry.map((s) => <li class="flex items-start gap-2"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-green-deep" />{s}</li>)}
+                    </ul>
+                  </div>
+                ) : null
+              }
+            </div>
+          </div>
+
+          {/* 第三行：7 天预报（不变，加风速小字） */}
+          <div class="rounded-2xl border border-gold/25 bg-cream/80 p-6">
+            <p class="text-xs uppercase tracking-wide text-charcoal/55">{T('forecastLabel', (lang === 'zh' ? '未来几天' : lang === 'km' ? 'ប៉ុន្មានថ្ងៃខាងមុខ' : 'Days ahead'))}</p>
+            {
+              days.length ? (
+                <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-7">
+                  {
+                    days.map((d) => (
+                      <div class="rounded-xl bg-white/70 p-3 text-center ring-1 ring-gold/20">
+                        <p class="text-[0.7rem] font-medium text-charcoal/60">{d.dayLabel}</p>
+                        <div class="mt-2 flex items-center justify-center text-green-deep">
+                          <Icon name={d.wmo.icon} class="h-7 w-7" />
+                        </div>
+                        <p class="mt-1 text-[0.7rem] text-charcoal/70">{d.wmo.label}</p>
+                        <p class="mt-2 text-sm font-semibold text-charcoal">
+                          {d.maxC}°<span class="mx-0.5 text-charcoal/40">/</span><span class="text-charcoal/60">{d.minC}°</span>
+                        </p>
+                        <div class="mt-1 flex flex-wrap items-center justify-center gap-1">
+                          <span class="inline-flex items-center gap-1 rounded-full bg-sky/10 px-2 py-0.5 text-[0.65rem] text-sky-deep">
+                            <Icon name="rain" class="h-3 w-3" />
+                            {d.rainPct}%
+                          </span>
+                          {d.windMax ? <span class="inline-flex items-center gap-1 rounded-full bg-green-deep/10 px-2 py-0.5 text-[0.65rem] text-green-deep">{d.windMax}km/h</span> : null}
+                        </div>
+                      </div>
+                    ))
+                  }
+                </div>
+              ) : null
+            }
+          </div>
+        </div>
+      )
+    }
+  </div>
+</section>

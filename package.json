@@ -1,5 +1,5 @@
 {
-  "name": "bangui-windmills",
+  "name": "royalpalacepark",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -12,11 +12,12 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "cf:dev": "npm run build && wrangler dev",
-    "cf:deploy": "npm run build && cross-env CURRENT_SITE_DOMAIN=banguiwindmills.com wrangler deploy",
+    "cf:dev": "astro build && wrangler dev",
+    "cf:deploy": "astro build && cross-env CURRENT_SITE_DOMAIN=royalpalacepark.com wrangler deploy",
     "deploy": "npm run cf:deploy"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "12.2.0",
     "@tailwindcss/vite": "4.3.3",
     "astro": "7.2.0",
     "tailwindcss": "4.3.3"

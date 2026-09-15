@@ -1,0 +1,121 @@
+---
+import Icon from './Icon.astro';
+import { mapsUrl, siteConfig } from '../config';
+
+interface Props {
+  lang: string;
+  messages: any;
+}
+const { lang, messages } = Astro.props;
+const e = messages.essentials ?? {};
+const L = (zh: string, en: string, km: string) => (lang === 'zh' ? zh : lang === 'km' ? km : en);
+
+const plusCode = siteConfig.plusCode;
+const address =
+  (messages.map?.addressValue as string | undefined) ??
+  (lang === 'zh'
+    ? '柬埔寨金边 Samdach Sothearos 大道'
+    : lang === 'km'
+      ? 'មហាវិថីសម្តេចសុធារស ភ្នំពេញ កម្ពុជា'
+      : 'Samdach Sothearos Blvd, Phnom Penh, Cambodia');
+const onSite =
+  (messages.common?.onSiteConfirm as string | undefined) ??
+  L('开放时间可能随管理调整，请以现场为准。', 'Hours may vary by management — always confirm on-site.', 'ម៉ោងអាចប្រែប្រួល សូមបញ្ជាក់នៅកន្លែង។');
+---
+
+<section id="essentials" class="scroll-mt-20 bg-white py-16 md:py-24">
+  <div class="mx-auto max-w-6xl px-4">
+    <p class="section-eyebrow">{e.eyebrow ?? L('访客须知', 'Visitor essentials', 'ព័ត៌មានចាំបាច់')}</p>
+    <h2 class="mt-2 font-serif text-3xl font-bold text-green-deep md:text-4xl">
+      {e.title ??
+        L('开放时间、着装规范与门票（2026）', 'Opening hours, dress code & tickets · 2026', 'ម៉ោងបើក សម្លៀកបំពាក់ និងសំបត់ ឆ្នាំ 2026')}
+    </h2>
+    {e.subtitle && <p class="mt-3 max-w-3xl text-sm leading-relaxed text-charcoal/75">{e.subtitle}</p>}
+
+    <div class="mt-10 grid gap-6 lg:grid-cols-3">
+      {/* 1. Opening Hours */}
+      <div class="glass-card rounded-2xl p-6">
+        <div class="flex items-center gap-3">
+          <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-green-deep/10 text-green-deep"><Icon name="clock" class="h-5 w-5" /></div>
+          <div>
+            <h3 class="font-serif text-lg font-bold text-charcoal">{e.hours?.title ?? L('开放时间', 'Opening hours', 'ម៉ោងបើកចំហរ')}</h3>
+            <p class="text-xs text-charcoal/55">{e.hours?.tag ?? L('公园外围公共绿地', 'Public park area', 'តំបន់ឧទ្យានសាធារណៈ')}</p>
+          </div>
+        </div>
+        <ul class="mt-5 space-y-2 text-sm text-charcoal/80">
+          <li class="flex items-center justify-between border-b border-gold/15 pb-2">
+            <span>{e.hours?.weekday ?? L('周一 – 周五', 'Monday – Friday', 'ថ្ងៃច័ន្ទ – ថ្ងៃសុក្រ')}</span>
+            <span class="font-semibold text-green-deep">{e.hours?.weekdayTime ?? '07:00 – 18:00'}</span>
+          </li>
+          <li class="flex items-center justify-between border-b border-gold/15 pb-2">
+            <span>{e.hours?.weekend ?? L('周六 – 周日', 'Saturday – Sunday', 'ថ្ងៃសៅរ៍ – ថ្ងៃអាទិត្យ')}</span>
+            <span class="font-semibold text-green-deep">{e.hours?.weekendTime ?? '06:30 – 18:30'}</span>
+          </li>
+          <li class="flex items-center justify-between border-b border-gold/15 pb-2">
+            <span>{e.hours?.palace ?? L('王宫建筑群（独立开放）', 'Royal Palace (separate)', 'ព្រះបរមរាជវាំង (បើកដាច់)')}</span>
+            <span class="font-semibold text-green-deep">{e.hours?.palaceTime ?? '07:30 – 11:00 / 14:00 – 17:00'}</span>
+          </li>
+          <li class="flex items-start gap-2 pt-1">
+            <Icon name="info" class="mt-0.5 h-4 w-4 shrink-0 text-gold-deep" />
+            <p class="text-xs leading-relaxed text-charcoal/70">{e.hours?.note ?? L('王宫区域可能因王室活动临时关闭，出发前查看官方通知或现场公告。', 'Palace hours may shift for royal events — check official notices before you go.', 'តំបន់ព្រះបរមរាជវាំងអាចបិទជាបណ្តោះអាសន្ទ សូមពិនិត្យមុនចេញដំណើរ។')}</p>
+          </li>
+        </ul>
+      </div>
+
+      {/* 2. Dress Code */}
+      <div class="glass-card rounded-2xl p-6">
+        <div class="flex items-center gap-3">
+          <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-pink-100 text-pink-700"><Icon name="check" class="h-5 w-5" /></div>
+          <div>
+            <h3 class="font-serif text-lg font-bold text-charcoal">{e.dress?.title ?? L('着装规范', 'Dress code', 'បទដ្ឋានសម្លៀកបំពាក់')}</h3>
+            <p class="text-xs text-charcoal/55">{e.dress?.tag ?? L('王宫 / 寺庙区域适用', 'Palace & temple areas', 'តំបន់ព្រះបរមរាជវាំង / វត្ត')}</p>
+          </div>
+        </div>
+        <ul class="mt-5 space-y-2.5 text-sm text-charcoal/80">
+          <li class="flex items-start gap-2"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-green-deep" /><span>{e.dress?.shoulders ?? L('肩膀需遮盖：无袖上衣、吊带、背心不建议进入。', 'Cover shoulders — avoid sleeveless tops, tank tops and camisoles.', 'គ្របដណ្តប់ស្មា – ហាមសម្លៀកបំពាក់គ្មានដៃ។')}</span></li>
+          <li class="flex items-start gap-2"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-green-deep" /><span>{e.dress?.knees ?? L('膝盖需遮盖：短裤、短裙需过膝，建议带披肩备用。', 'Cover knees — shorts and skirts should reach below the knee; keep a shawl.', 'គ្របដណ្តប់ជង្គង់ – ខោខ្លី និងក្រម៉ាខ្លីគួរអោយលើសជង្គង់។')}</span></li>
+          <li class="flex items-start gap-2"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-green-deep" /><span>{e.dress?.shoes ?? L('建议穿易穿脱的包脚鞋或凉鞋，部分区域可能要求脱鞋。', 'Wear easy slip-on closed shoes or sandals; some areas may require removing shoes.', 'ពាក់ស្បែកជើងជិះងាយៗ – តំបន់ខ្លះត្រូវដោះស្បែកជើង។')}</span></li>
+          <li class="flex items-start gap-2"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-red-400" /><span>{e.dress?.avoid ?? L('避免：紧身、透视、露腰肚、过短的衣物。', 'Avoid tight, sheer, crop-top or overly short clothes.', 'ជៀសវាងសម្លៀកបំពាក់ តូច / ថ្លា / ពាក់ពុះ។')}</span></li>
+          <li class="flex items-start gap-2 pt-1"><Icon name="info" class="mt-0.5 h-4 w-4 shrink-0 text-gold-deep" /><span class="text-xs leading-relaxed text-charcoal/70">{e.dress?.note ?? L('公园外围为开放绿地，不强制着装，但建议仍使用披肩等方式保持尊重。', 'The outer park is an open public space — no strict dress rules, but modest clothing is respectful.', 'តំបន់ខាងក្រៅឧទ្យានមិនទាមទារខ្លាំង ប៉ុន្តែសម្លៀកបំពាក់សមរម្យជាទូទៅគឺល្អ។')}</span></li>
+        </ul>
+      </div>
+
+      {/* 3. Entrance Fee & Location */}
+      <div class="glass-card rounded-2xl p-6">
+        <div class="flex items-center gap-3">
+          <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-sky/15 text-sky-deep"><Icon name="ticket" class="h-5 w-5" /></div>
+          <div>
+            <h3 class="font-serif text-lg font-bold text-charcoal">{e.tickets?.title ?? L('门票与位置', 'Tickets & location', 'សំបត់ចូល និងទីតាំង')}</h3>
+            <p class="text-xs text-charcoal/55">{e.tickets?.tag ?? L('快速定位参考', 'Quick reference', 'ព័ត៌មានយ៉ាងខ្លី')}</p>
+          </div>
+        </div>
+        <dl class="mt-5 space-y-3.5 text-sm text-charcoal/80">
+          <div class="rounded-xl bg-sand/60 p-3">
+            <dt class="text-xs uppercase tracking-wide text-charcoal/55">{e.tickets?.parkFee ?? L('王宫公园（外围公共绿地）', 'Royal Palace Park (outer green space)', 'ឧទ្យានព្រះបរមរាជវាំង (តំបន់ខាងក្រៅ)')}</dt>
+            <dd class="mt-1 text-base font-semibold text-green-deep">{e.tickets?.parkFeeValue ?? L('免费进入', 'Free entry', 'ចូលឥតគិតថ្លៃ')}</dd>
+          </div>
+          <div class="rounded-xl bg-sand/60 p-3">
+            <dt class="text-xs uppercase tracking-wide text-charcoal/55">{e.tickets?.palaceFee ?? L('王宫建筑群（含银殿）', 'Royal Palace complex (incl. Silver Pagoda)', 'ព្រះបរមរាជវាំង (រួមទាំងវត្តព្រះកែវ)')}</dt>
+            <dd class="mt-1 text-base font-semibold text-green-deep">{e.tickets?.palaceFeeValue ?? L('需另行购票（按官方当季价格）', 'Separate ticket — see current official pricing', 'ទិញសំបត់ដាច់ (តម្លៃផ្លូវការបច្ចុប្បន្ន)')}</dd>
+          </div>
+          <div class="space-y-1">
+            <div class="flex items-start gap-2"><Icon name="pin" class="mt-0.5 h-4 w-4 shrink-0 text-green-deep" /><span>{address}</span></div>
+            <div class="flex items-start gap-2"><Icon name="map" class="mt-0.5 h-4 w-4 shrink-0 text-green-deep" /><span>{e.tickets?.plus ?? L('Google Plus Code：', 'Google Plus Code: ', 'Google Plus Code៖ ')}{plusCode}</span></div>
+          </div>
+          <div>
+            <a
+              href={mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-1 inline-flex items-center gap-1.5 rounded-xl bg-green-deep px-3.5 py-2 text-xs font-semibold text-cream shadow-sm transition hover:bg-green-deep/90"
+            >
+              <Icon name="link" class="h-3.5 w-3.5" />
+              {e.tickets?.mapsButton ?? L('在 Google 地图打开', 'Open in Google Maps', 'បើកក្នុង Google Maps')}
+            </a>
+          </div>
+          <p class="text-xs leading-relaxed text-charcoal/65">{onSite}</p>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>

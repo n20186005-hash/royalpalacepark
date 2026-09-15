@@ -1,8 +1,17 @@
-# wrangler.toml — Cloudflare Workers Static Assets 部署
-# 适用：Astro 纯静态站点（构建输出 ./dist）
+# wrangler.toml — Cloudflare Workers 部署配置
+# 适配：Astro hybrid 模式 + @astrojs/cloudflare 适配器
+# 构建产物在 .astro/output/ 下，由 adapter 生成 wrangler 可识别的结构
 
-name = "bangui-windmills"
-compatibility_date = "2025-12-01"
+name = "royal-palace-park"
 
-[assets]
-directory = "./dist"
+compatibility_date = "2025-07-28"
+
+# Cloudflare Workers Pages/Directory 模式：由适配器生成
+# 具体部署命令见 package.json 中的 cf:deploy / deploy 脚本
+
+# 兼容性标记：启用更严格的 Streams 行为（Astro/Workers 推荐）
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+# 构建阶段的域名解析发生在 src/config.ts 中的 resolveBaseUrl，
+# 因此这里不需再次设置；若需要运行时读取可在此添加。

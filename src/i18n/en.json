@@ -1,9 +1,9 @@
 {
   "meta": {
-    "title": "Royal Palace Park Phnom Penh Cambodia — Visitor Guide",
-    "description": "Complete visitor guide to Royal Palace Park in Phnom Penh, Cambodia. History, location, transportation, facilities and travel information for a calm public green space near the Royal Palace.",
-    "ogTitle": "Royal Palace Park — Visitor Guide",
-    "ogDescription": "History, location, transport, facilities and travel tips for Royal Palace Park in Phnom Penh, Cambodia."
+    "title": "Royal Palace Park Phnom Penh (2026): Hours, Dress Code & Tickets",
+    "description": "Plan your visit to Royal Palace Park in Phnom Penh (4.5★, 5,599 Google Maps reviews · Sep 2026). Opening hours, dress code rules, entrance info, map & location at HW8J+3VX Samdach Sothearos Blvd — updated 2026 visitor guide.",
+    "ogTitle": "Royal Palace Park Phnom Penh · Hours & Visiting Guide (2026)",
+    "ogDescription": "2026 independent visitor guide for Royal Palace Park, Phnom Penh — opening hours, dress code, tickets, location map, 4.5★ Google Maps rating & nearby National Museum / Independence Monument."
   },
   "header": {
     "siteName": "Royal Palace Park",
@@ -31,17 +31,19 @@
   },
   "hero": {
     "localName": "ឧទ្យានព្រះបរមរាជវាំង",
-    "title": "Royal Palace Park",
-    "subtitle": "A peaceful public green space near Cambodia's Royal Palace, offering visitors a place to enjoy Phnom Penh's cultural landscape.",
+    "title": "Royal Palace Park (Phnom Penh)",
+    "subtitle": "Welcome to Royal Palace Park (ឧទ្យានព្រះបរមរាជវាំង / 王宫公园), widely recognised as the central Royal Palace Park of Phnom Penh, Cambodia. A peaceful public green space beside Cambodia's Royal Palace, it gives visitors a place to enjoy the capital's cultural landscape.",
     "rating": "4.5",
-    "reviews": "5,555",
+    "reviews": "5,599",
     "reviewsSuffix": "public reviews",
+    "ratingNote": "Ratings and review counts are synchronised from Google Maps user reviews · September 2026 · Click to see all reviews on Google Maps ↗",
+    "nearbyCluster": "When visiting Royal Palace Park, visitors can easily explore the surrounding historical landmarks and points of interest, including {landmark1} and {landmark2}.",
     "ctaMaps": "View Map",
     "ctaExplore": "Start Exploring",
     "facts": [
       { "k": "Type", "v": "Public Park" },
       { "k": "Location", "v": "Phnom Penh, Cambodia" },
-      { "k": "Rating", "v": "4.5 / 5" },
+      { "k": "Rating", "v": "4.5 / 5 (5,599)" },
       { "k": "District", "v": "Royal Palace area" }
     ],
     "heroAlt": "Royal Palace Park, a green public space in front of the Royal Palace in central Phnom Penh, Cambodia"
@@ -56,7 +58,7 @@
       { "k": "Type", "v": "City Park / Public Space", "icon": "tree" },
       { "k": "Location", "v": "Samdach Sothearos Blvd, Phnom Penh", "icon": "pin" },
       { "k": "Map Code", "v": "HW8J+3VX", "icon": "pin" },
-      { "k": "Rating", "v": "4.5 / 5 (≈5,555)", "icon": "star" },
+      { "k": "Rating", "v": "4.5 / 5 (5,599 Google Maps reviews)", "icon": "star" },
       { "k": "City", "v": "Phnom Penh, Cambodia", "icon": "city" }
     ]
   },
@@ -78,13 +80,18 @@
   },
   "history": {
     "eyebrow": "History & Culture",
-    "title": "Cambodia's Royal Heritage",
+    "title": "History & Significance of Royal Palace Park",
     "subtitle": "Phnom Penh as the capital, the role of the Royal Palace, and how royal architecture shapes the surrounding city.",
     "sections": [
       {
-        "era": "1860s",
-        "heading": "Phnom Penh becomes the capital",
-        "body": "Around 1866, King Norodom moved the royal court from Oudong to Phnom Penh and chose the present palace area to build a new royal city. The open space in front of the palace was planned as part of the city from the start, becoming its ceremonial and cultural heart and setting the stage for today's park."
+        "era": "1866",
+        "heading": "King Norodom's move to Phnom Penh",
+        "body": "In 1866 King Norodom formally relocated the royal capital from Oudong back to Phnom Penh, marking the reunification of the Khmer court on the Tonlé Sap–Mekong confluence. The palace site was deliberately placed on the riverbank so that the royal forecourt faced both the rivers and the approach from the city — the same sightline and ceremonial axis that defines the park today. Surveyors mapped the perimeter walls, the main gate and the riverfront plaza as a single ensemble, rather than as separate buildings."
+      },
+      {
+        "era": "1880s–1940s",
+        "heading": "French Protectorate — materials, ornaments and urban grid",
+        "body": "Under the French Protectorate the palace complex was extended in phases, blending Khmer prasat rooflines with European construction techniques. Imported glazed tiles, cast-iron structural elements and smooth plaster detailing were combined with traditional wood-carving and gilded stucco, visible today on gatehouses, the Throne Hall outer eaves and gallery balustrades. The surrounding walls were pushed outward in two expansion phases (late 1880s and late 1920s) to include formal gardens, the Silver Pagoda compound and paved forecourt lawns — progressively enlarging the public green buffer we now call Royal Palace Park."
       },
       {
         "era": "French Protectorate",
@@ -95,6 +102,11 @@
         "era": "Royal Palace",
         "heading": "The Royal Palace complex",
         "body": "The Royal Palace is the official residence of the King of Cambodia and the centre of coronations and state ceremonies. Its walls, gardens and gilded roofs define the character of the surrounding public space — the park's sightlines, scale and sense of dignity all come from its proximity."
+      },
+      {
+        "era": "1953–1970",
+        "heading": "Post-independence civic opening",
+        "body": "After independence in 1953, under the Sangkum era the palace forecourt was landscaped with additional palm rows, fountain plazas and public benches, shifting the area from a strictly royal precinct into a civic gathering ground used for state visits, Independence Day ceremonies and school parades. Many of the mature trees lining the outer walls date from this 1950s–1960s campaign of public greening."
       },
       {
         "era": "After independence",
@@ -142,7 +154,7 @@
         "icon": "building",
         "name": "Throne Hall",
         "khmer": "ព្រះរាជដំណាក់",
-        "desc": "The landmark building of the palace forecourt, with its soaring spire and gilded ornaments most eye-catching from the park — the heart of state ceremony and coronations. Its proportions and roofline are the skyline protagonist of the whole area."
+        "desc": "The landmark building of the palace forecourt, with its soaring spire and gilded ornaments most eye-catching from the park — the heart of state ceremony and coronations. Its proportions and roofline are the skyline protagonist of the whole area. Note the French-era glazed ceramic tiles and cast-iron railing brackets inserted into the traditional Khmer structure: a material record of Protectorate-era craftsmanship."
       },
       {
         "icon": "star",
@@ -160,7 +172,7 @@
         "icon": "park",
         "name": "Royal gardens & lawns",
         "khmer": "សួនរាជវាំង",
-        "desc": "The open lawns and rows of trees in front of the palace are the transition between the park and the royal space. Neat greenery, symmetrical pools and paths reflect the Khmer court garden ideal of 'dignified yet approachable'."
+        "desc": "The open lawns and rows of trees in front of the palace are the transition between the park and the royal space. Neat greenery, symmetrical pools and paths reflect the Khmer court garden ideal of 'dignified yet approachable'. These outer greens were extended twice (1880s, 1920s) as the palace walls were pushed outward, forming the park's mature tree line we see today."
       },
       {
         "icon": "leaf",
@@ -270,45 +282,293 @@
       }
     ]
   },
-  "facilities": {
-    "eyebrow": "Facilities",
-    "title": "Visitor Facilities Nearby",
-    "subtitle": "Type-based guidance only — no commercial names are recommended.",
-    "cards": [
+  "weather": {
+    "eyebrow": "Weather & tips",
+    "title": "Weather around the Royal Palace & practical tips",
+    "subtitle": "Live conditions and a simple seven-day look, with umbrella and clothing tips for travellers.",
+    "currentLabel": "Now",
+    "feels": "Feels like",
+    "humidity": "Humidity",
+    "rain": "Rain",
+    "wind": "Wind",
+    "uv": "UV",
+    "tips": "Visit tips",
+    "forecastLabel": "Days ahead",
+    "fallback": "Live data is currently unavailable. Please check back later.",
+    "riskTitle": "Risk advisory",
+    "todayRange": "Today",
+    "rainChance": "Chance of rain",
+    "uvToday": "Peak UV today",
+    "windMax": "Max wind",
+    "updated": "Updated",
+    "blocks": {
+      "outfit": { "title": "What to wear" },
+      "plan":   { "title": "Plan your visit" },
+      "carry":  { "title": "Pack these" }
+    }
+  },
+  "season": {
+    "eyebrow": "Best time to visit",
+    "title": "Seasonal strategy — weather, river & nature",
+    "subtitle": "A long-term overview of climate, river levels and wildlife patterns around central Phnom Penh based on typical annual averages.",
+    "note": "Compiled from typical climate data. Actual conditions may differ; always check near-term weather before departure.",
+    "cols": {
+      "quarter": "Season",
+      "weather": "Climate",
+      "water": "River & water",
+      "wildlife": "Nature & wildlife",
+      "tips": "Visit tips"
+    },
+    "rows": [
       {
-        "icon": "wc",
-        "title": "Restrooms",
-        "text": "Public restrooms can be found in and around the park, nearby visitor areas and public buildings such as museums or markets. They are typically signposted. Plan your restroom stops before entering the main visiting area, and carry small change or tissues as supplies are not always provided."
+        "icon": "sun",
+        "quarter": "Cool / dry season",
+        "months": "November – February",
+        "weather": "Pleasant, drier and less humid overall. Mornings and evenings are noticeably cooler, with lower rainfall totals and fewer sudden showers.",
+        "water": "Tonlé Sap and Mekong levels gradually fall after the rainy season. Riverbanks are wider and riverside walks are more comfortable. Water Festival (Bon Om Touk / 送水节, usually October–November) is held as water recedes — dragon-boat races are centred on the riverside directly north of the palace, with millions of visitors watching from the promenades. Visit timing: avoid peak festival dates or book well ahead.",
+        "wildlife": "Migratory birds are more visible along the river corridor, especially late November through January; flowering trees (frangipani, cassia, royal poinciana) add city colour. Late Feb marks early bud break on many flowering species.",
+        "temp": "Typical 23 – 32 °C",
+        "tips": [
+          "Best overall season for a palace and riverside walk — mornings and late afternoons are ideal.",
+          "Still use sun protection, especially if taking the ferry or long riverside walks.",
+          "Popular with travellers — book accommodation well in advance over December holidays.",
+          "Bon Om Touk (Water Festival): if attending, arrive early for riverside viewing; the park itself is often used as a ceremonial overflow plaza."
+        ]
+      },
+      {
+        "icon": "heat",
+        "quarter": "Hot season",
+        "months": "March – May",
+        "weather": "High heat and humidity with long bright days. Brief but intense afternoon storms can build up in late April and May.",
+        "water": "Water levels are at their lowest before the monsoon refill; the river's edge can appear narrower. Fish spawning migrations (proleak / trey riel runs) begin as water warms in early May — the Tonlé Sap–Mekong confluence sees the first upstream pulses of native fish species.",
+        "wildlife": "Birding is quieter but city trees still host common urban species. Outdoor lunch breaks feel hottest. Khmer New Year / Water Splashing Festival (Chaul Chnam Thmey, mid-April, usually 13–15 Apr) falls right at the annual temperature peak — streets around the palace fill with water-throwing celebrations and family visits; visitor rhythm slows for 2–3 days around the New Year. Flowering peaks on the yellow-and-gold cassia lineups in late March.",
+        "temp": "Typical 27 – 36 °C (occasionally higher)",
+        "tips": [
+          "Visit early (7 – 10 am) or late afternoon onwards; avoid 11 am – 3 pm outdoors.",
+          "Carry a reusable water bottle and shade (umbrella / cap).",
+          "Schedule indoor stops (museum, cafés) in the middle of the day.",
+          "Khmer New Year (mid-Apr): most small shops close for 2–3 days; large riverside areas become public celebration zones."
+        ]
+      },
+      {
+        "icon": "rain",
+        "quarter": "Green / rainy season",
+        "months": "June – October",
+        "weather": "Short, heavy downpours, most often in the afternoon. Humidity is high but greenery is lush and crowds are lighter.",
+        "water": "Tonlé Sap and Mekong levels rise; riverside paths near flood-prone spots may be wet. Boat rides are possible in places. The annual Tonlé Sap flow reversal (when the monsoon current pushes water back from Mekong into Tonlé Sap lake) normally peaks in September and is the single most important ecological event for Cambodia's fish cycle.",
+        "wildlife": "Vegetation turns vivid green; insects and amphibian activity peaks. Migratory wading birds start returning from northern breeding grounds in late September. Monsoon blooms (lotus ponds, rain lilies, flame tree) line the palace park and river front after sustained rains.",
+        "temp": "Typical 25 – 33 °C",
+        "tips": [
+          "Keep a compact umbrella or light rain coat handy; footwear that handles wet pavement.",
+          "Build your itinerary loosely around the morning — it is usually the driest part of the day.",
+          "Lower prices and fewer people; off-peak stays are easier to book.",
+          "September is peak Tonlé Sap flow reversal; riverside walks at dawn or early dusk often show dramatic skies and fish-rich shallows for bird-watchers."
+        ]
+      }
+    ]
+  },
+  "audience": {
+    "eyebrow": "Visitor routes",
+    "title": "Three tailored routes by travel style",
+    "subtitle": "Pick the rhythm that fits your group — the descriptions below are indicative outlines, not specific commercial recommendations.",
+    "pace": "Pace",
+    "highlights": "Highlights",
+    "notes": "Reminders",
+    "plans": [
+      {
+        "icon": "family",
+        "title": "Families with children",
+        "tagline": "Slow, shaded, plenty of rest & snacks",
+        "summary": "An easy-paced, shaded walk with wide lawns and riverside access, plus indoor breaks to keep everyone comfortable between stops.",
+        "pace": "Gentle",
+        "highlights": [
+          "Open lawns near the palace outer walls — room for kids to run and stretch legs.",
+          "A short riverside leg to feel the breeze and watch boats pass by.",
+          "Easy transition to the National Museum (interactive first visit) or a shaded street café stop.",
+          "End with casual street bites at a city-centre market or riverside food area."
+        ],
+        "notes": [
+          "Carry water, wipes and sun protection. Pick hours before 10 am or after 4 pm.",
+          "Pushchairs generally work along main promenades; check kerbs on side streets."
+        ]
+      },
+      {
+        "icon": "camera",
+        "title": "Photography & cityscape",
+        "tagline": "Golden-hour city culture route",
+        "summary": "A time-conscious route designed around light — palace, riverfront and monument stops aligned with softer sunrise/sunset hours, with specific golden-hour vantage points and blue-hour composition cues.",
+        "pace": "Medium",
+        "highlights": [
+          "Sunrise golden hour (≈ 05:45 – 06:30): Best palace sunrise positions — (A) Outer north-east lawn corner with the gilded Throne Hall spire backlit against cool blue sky; (B) Riverfront promenade facing the palace roofline with silhouetted long-tail boats in foreground; (C) Central palace-gate axis for symmetrical lawn + wall compositions.",
+          "Early morning palace-wall and park walk — long shadows and empty lawns for clean compositions.",
+          "Riverside morning activity: vendors, commuters, river traffic.",
+          "Midday indoor buffer (museum / shaded café) keeps everyone comfortable; return to outdoor photography 30–45 min before sunset.",
+          "Sunset golden hour (≈ 17:25 – 18:10, varies by season): Top sunset vantage points — (A) Riverside steps near the palace northern gate, golden roofs reflecting on Tonlé Sap; (B) Independence Monument west-facing plaza with backlit sky + street-layer traffic bokeh; (C) Park outer wall, palm-framed silhouette of palace spires.",
+          "Blue hour (≈ 18:10 – 18:30): Palace rooftop lights first come on against deep indigo sky — this is the professional photographer's preferred window for night-over-city palace shots."
+        ],
+        "notes": [
+          "Respect no-photo signs inside religious or palace areas; ask before photographing people.",
+          "Tripods may not be welcome in crowded sidewalks; travel light.",
+          "Sunrise/sunset times shift ±30 min between November and May; cross-check an accurate solar almanac on the day of visit."
+        ]
       },
       {
         "icon": "access",
-        "title": "Accessibility",
-        "text": "The park is an open urban space with mostly level paved paths, but some areas may have uneven ground, curbs and higher foot traffic. Step-free routes are generally available along the main promenades. Visitors with reduced mobility, prams or wheelchairs should check conditions on-site in advance and allow extra time."
+        "title": "Low-effort & accessibility",
+        "tagline": "Step-light, seated options, no rushing",
+        "summary": "A flat, low-effort outline with seated rest stops, short transfers and shade, suitable for slower travellers, seniors or limited mobility.",
+        "pace": "Relaxed",
+        "highlights": [
+          "Main, level promenades around the outer park area — short, self-paced segments.",
+          "Regular shaded benches for breaks; riverside viewpoints with plenty of places to sit.",
+          "Pick one indoor cultural stop rather than trying to see everything in one day.",
+          "Use short transfers between distant points rather than attempting a full walking loop."
+        ],
+        "notes": [
+          "Surrounding streets can have uneven kerbs; confirm surface conditions on arrival.",
+          "Plan toilet and meal stops ahead to avoid unnecessary backtracking."
+        ]
+      }
+    ]
+  },
+  "itinerary": {
+    "eyebrow": "Suggested routes",
+    "title": "Half-day & full-day suggested walks",
+    "subtitle": "Classic, practical routes through the park and its city surroundings. Times are approximate and for planning only.",
+    "suitable": "Suitable for",
+    "half": {
+      "title": "Half-day classic",
+      "duration": "≈ 4 hours",
+      "intro": "An easy introduction covering the palace area, the riverfront and one nearby cultural landmark.",
+      "steps": [
+        { "time": "05:50 – 06:40", "place": "Sunrise golden-hour palace-wall spot (optional)", "note": "Sunrise golden hour: 05:45 – 06:30 seasonally. Sunrise vantage: palace outer north-east lawn corner + riverfront promenade (long-tail boat silhouette foreground). Skip if early if you prefer a relaxed start." },
+        { "time": "07:30 – 08:30", "place": "Royal Palace Park outer circuit", "note": "Walk the lawn and palace walls while the sun is still low; take your first photos." },
+        { "time": "08:30 – 09:30", "place": "Riverside walk (towards Sisowath Quay)", "note": "River breeze, morning local activity, plenty of bench breaks." },
+        { "time": "09:30 – 11:00", "place": "One cultural landmark of your choice", "note": "Nearby museum or monument — use the area's official ticketing and rules." },
+        { "time": "11:00 – 11:30", "place": "City-centre café or drink stop", "note": "End with a cool drink; decide whether to continue in the afternoon." }
+      ],
+      "suitable": "First-time visitors, couples, casual walkers"
+    },
+    "full": {
+      "title": "Full-day city culture",
+      "duration": "≈ 7 – 8 hours",
+      "intro": "Go deeper, with a midday indoor break to avoid the heat and two landmark picks, ending with an evening riverside stroll and golden-hour / blue-hour photography.",
+      "steps": [
+        { "time": "05:50 – 06:40", "place": "Sunrise golden-hour vantage pick (optional)", "note": "Sunrise golden hour picks for photographers: (A) Outer north-east lawn corner palace-gate axis; (B) Riverfront promenade with Tonlé Sap–Mekong confluence for skyline. Non-photographers can skip." },
+        { "time": "07:30 – 08:45", "place": "Royal Palace Park outer circuit + photo stops", "note": "Explore lawn corners, shaded paths and palace views before crowds arrive." },
+        { "time": "08:45 – 10:00", "place": "Riverside (northward along Tonlé Sap)", "note": "Light traffic, fishermen, river ferries — stop whenever a shot interests you." },
+        { "time": "10:00 – 11:30", "place": "Landmark A (museum or palace complex if open)", "note": "Take your time; keep water and a hat handy." },
+        { "time": "11:30 – 13:00", "place": "Lunch & rest break (indoor)", "note": "Choose a city-centre eatery or food area by type; use this as shelter from midday heat." },
+        { "time": "13:00 – 15:00", "place": "Landmark B (monument, market or temple hill)", "note": "Second cultural or shopping stop depending on your interest." },
+        { "time": "15:00 – 17:00", "place": "Downtown wander or small park break", "note": "Slow window-shopping, snacks, or simply observe local life at your own pace." },
+        { "time": "17:25 – 18:30", "place": "Sunset + blue hour at riverside palace northern gate & Independence Monument plaza", "note": "Sunset golden hour (varies ±30 min seasonally. Blue hour 18:10–18:30 for palace rooftop lights first-on shots." }
+      ],
+      "suitable": "Culture lovers, photographers, active travellers"
+    }
+  },
+  "stewardship": {
+    "eyebrow": "Understanding the site",
+    "title": "History, local culture & visitor responsibility",
+    "subtitle": "A non-profit overview of the story behind the palace area, how to behave as a respectful visitor, and where to find official information.",
+    "disclaimer": "This is an independent, non-commercial introduction and is not an official statement of any government or religious body. Always check site notices for the latest rules.",
+    "groups": [
+      {
+        "icon": "book",
+        "title": "Historical context",
+        "intro": "The Royal Palace of Phnom Penh has stood on the present riverside site since the late 19th century, when Norodom moved the capital back to Phnom Penh in 1866 — replacing the earlier royal centre of Oudong and symbolising the reunification of the Khmer court on the Tonlé Sap–Mekong confluence.",
+        "items": [
+          "1866 perimeter: the first surveyors laid a compact inner wall enclosing the Throne Hall, Silver Pagoda and Royal Residence, with a small ceremonial plaza facing today's Sisowath Quay direction.",
+          "1880s wall push: under early Protectorate planning the western and northern walls were extended to add formal gardens, a parade ground and the outer palm avenues that became the park's first green belt.",
+          "1920s second expansion: the palace grounds were enlarged again toward the riverfront, incorporating manicured lawns, reflecting pools and the mature rain-tree rows that today shade the outer park walk.",
+          "1950s Sangkum civic opening: Independence-era landscaping added public benches, a central fountain plaza and paved paths, turning a strictly royal forecourt into a shared civic promenade.",
+          "The complex was built in the traditional Khmer style but also introduced European-influenced structures, reflecting Cambodia's engagement with the world during the French Protectorate.",
+          "Major spaces include the Throne Hall, the Royal Residence, the Silver Pagoda compound and manicured gardens — many areas are open to visitors under specific rules.",
+          "The outer park and riverfront promenade developed later as a public green space, now loved by locals and travellers alike."
+        ]
+      },
+      {
+        "icon": "heart",
+        "title": "Local culture & etiquette",
+        "intro": "Phnom Penh is a living capital, not just a sightseeing destination. Simple gestures of respect help preserve the experience for everyone.",
+        "items": [
+          "Sampeah etiquette (合十礼) — three levels of the traditional palms-together bow: (a) fingertips at chest level: greeting for equals; (b) fingertips at chin level: greeting for elders, teachers or senior staff; (c) fingertips at brow level: greeting for monks, royalty or high ceremonies. A slight bow always accompanies the gesture.",
+          "Dress code for the Royal Palace compound (御殿区域着装修辞细则 checklist)：✓ Shoulders fully covered — no tank tops, spaghetti straps or bare backs; use a thin shawl if sleeveless. ✓ Knees fully covered — no shorts above the kneecap or very short skirts; a wrapped sarong is acceptable. ✓ Footwear removable — shoes must be taken off before entering temple halls, so slip-on shoes or sandals are practical. ✓ Fabric decorum — avoid sheer, tight, transparent or low-cut fabrics; palace and temple areas are sacred space. ✓ Remove hats and sunglasses inside shrine rooms; do not wear overly casual beachwear anywhere on the grounds.",
+          "Be quiet in religious or royal areas; avoid pointing feet at altars or people. Ask before photographing individuals.",
+          "Do not touch royal or religious objects, and respect any cordoned-off zones, including those used for ceremonies."
+        ]
+      },
+      {
+        "icon": "leaf",
+        "title": "Your environmental responsibility",
+        "intro": "Public green spaces in dense cities rely on visitors to look after them. Small choices add up. Cambodia has launched a national plastic-reduction initiative to protect the Tonlé Sap and Mekong ecosystems from plastic leakage into the river corridor.",
+        "items": [
+          "Carry your litter out or use bins provided. Never drop paper, plastic or food wrappers on lawns or in the river.",
+          "Use a reusable water bottle — stay hydrated and reduce single-use plastic waste in the city. Most public venues and eateries offer free top-ups on request.",
+          "Official bin types you will see around Phnom Penh (simplified by colour): 🟢 Green — general household waste; 🟡 Yellow — paper and card; 🔵 Blue — plastic bottles & packaging; 🔴 Red — hazardous / small batteries & sharp items. Do not mix food waste with recyclable bins.",
+          "If you purchase food or drinks in single-use plastic, consider returning or recycling the packaging at any large public bin cluster near the riverside; these are serviced daily by the municipal waste team.",
+          "Keep on paved paths or open lawns. Do not pick plants, climb trees or disturb wildlife in or around the park.",
+          "If you see damage or hazards, report them through official channels rather than moving or altering anything yourself."
+        ]
+      }
+    ],
+    "officialTitle": "Where to find official information",
+    "officialIntro": "For opening hours, ticket prices, ceremonies, exhibitions and current rules, always check the sources below or on-site boards first:",
+    "officialLinks": [
+      { "label": "Ministry of Tourism of Cambodia", "url": "https://www.mot.gov.kh" },
+      { "label": "Tourism Cambodia portal", "url": "https://www.tourismcambodia.org" },
+      { "label": "Phnom Penh Municipality", "url": "https://www.phnompenh.gov.kh" },
+      { "label": "Ministry of Culture and Fine Arts", "url": "https://www.mcfa.gov.kh" }
+    ]
+  },
+  "facilities": {
+    "eyebrow": "Visitor facilities",
+    "title": "Visitor services & facilities around the area",
+    "subtitle": "Type-based guidance only. No commercial names or paid recommendations — choose based on your own needs on the day.",
+    "cards": [
+      {
+        "icon": "wc",
+        "title": "Public toilets & washrooms",
+        "text": "Public restrooms can be found around the park perimeter, at nearby public buildings, museums, transport hubs and larger food markets. Many are signposted but supplies are not always provided, so carry tissues and small change if needed. Hotels or cafés along major streets are also common restroom stops for customers."
+      },
+      {
+        "icon": "access",
+        "title": "Accessibility & mobility",
+        "text": "Main promenades and lawn edges around the park are mostly flat and paved, but side streets can have uneven kerbs or surfaces. Visitors with limited mobility, wheelchair users or families with pushchairs should plan along main routes first, allow extra time, and check ground conditions on arrival. Benches for resting are frequent along the riverside."
       },
       {
         "icon": "parking",
         "title": "Parking",
-        "text": "Dedicated parking at the palace is limited, and some streets nearby are no-stopping zones. Public parking may be found on surrounding streets or at larger public buildings a short walk away. Using public transport or local transport is generally easier, especially during busy periods."
+        "text": "On-street parking in the immediate palace area is often limited or restricted to specific times. Public parking areas exist in wider streets or at nearby public buildings a short walk away. Motorbike parking areas are common around the city. Heavy traffic or events can change availability on short notice, so parking is not guaranteed — consider arriving by taxi, ride-hailing or tuktuk when busy."
       },
       {
         "icon": "food",
-        "title": "Food & Drink",
-        "text": "The surrounding city area offers many options by type: local restaurants, casual eateries, drink stalls, cafés and street-food areas. Choose places that look clean and busy with locals, check prices where possible, and drink bottled or boiled water. No specific venue is recommended here."
+        "title": "Restaurants & food areas",
+        "text": "By type, visitors can typically find: street-food stalls, casual Khmer eateries, family restaurants, cafés, bakeries and riverside dining areas. The riverside promenade and the blocks around Central Market usually offer the widest variety. Choose hygienic-looking venues, ask about spicy levels if needed, and prefer bottled or boiled drinking water."
       },
       {
         "icon": "hotel",
         "title": "Accommodation",
-        "text": "Central Phnom Penh has a wide range of accommodation by type: hostels, guesthouses, mid-range hotels and upscale hotels. Choose an area based on budget, transport convenience and your travel plan — riverside and city-centre districts are common choices. Book through a platform or directly and compare recent reviews."
+        "text": "Phnom Penh offers accommodation by category: budget hostels and guesthouses, mid-range hotels, serviced apartments and riverside or city-centre premium hotels. Popular districts for visitors are the riverside strip, the old central area and the quiet southern districts. Compare recent reviews and transport convenience (airport, landmarks, traffic) before booking."
       },
       {
         "icon": "shop",
-        "title": "Shops & Shopping",
-        "text": "Nearby city areas usually have convenience stores, daily-needs shops, local markets and souvenir areas. For everyday items, convenience stores and markets are widely available; for gifts, look for fixed-price shops or agree on a price at markets. Choose based on your actual needs and check opening hours."
+        "title": "Shops, supermarkets & local markets",
+        "text": "Convenience stores and small grocers are common in every block for snacks, water, SIM cards and daily needs. For souvenirs, clothes or local produce, consider covered markets, artisan shops or small-street handicraft zones. Fixed-price shops are convenient for tourists; in market-style environments, price negotiation may be expected. Always check opening times around holidays."
       },
       {
         "icon": "fuel",
-        "title": "Fuel & Charging",
-        "text": "Drivers can find fuel stations and EV charging points across the city by type. Plan your route in advance, refuel before leaving the centre, and note that charging coverage varies by area. Keep a map app handy to locate the nearest option when needed."
+        "title": "Petrol stations & EV charging",
+        "text": "Fuel stations are spread throughout the city. Electric vehicle charging points exist in newer commercial areas and at some large properties, but coverage varies by district. Refuel or charge before you leave the centre for the airport or long drives, and use a map app to find the nearest available station when needed."
+      },
+      {
+        "icon": "medical",
+        "title": "Pharmacies & medical facilities",
+        "text": "City-centre pharmacies are open late in busier districts and can help with common travel ailments and basic supplies. For anything more serious or requiring a doctor, Phnom Penh has hospitals and clinics of different levels. Keep your travel insurance contact details and embassy information easily accessible."
+      },
+      {
+        "icon": "info",
+        "title": "Tourist information & money services",
+        "text": "Bank branches, ATMs and currency-exchange counters are abundant across the centre — use established, visibly regulated providers. Tourist information at major landmarks can give printed maps or direction guidance. Save the emergency phone numbers of your embassy or consulate for rare situations."
       }
     ]
   },
@@ -323,51 +583,90 @@
       "Pay attention to weather changes and heat"
     ]
   },
+  "essentials": {
+    "eyebrow": "Visitor essentials · 2026",
+    "title": "Opening hours, dress code & tickets for 2026",
+    "subtitle": "Everything you need to know before you go: when the park and palace are open, what you can and cannot wear, plus entrance fee basics and how to find us on Sothearos Blvd.",
+    "hours": {
+      "title": "Opening hours",
+      "tag": "Public park area",
+      "weekday": "Monday – Friday",
+      "weekdayTime": "07:00 – 18:00",
+      "weekend": "Saturday – Sunday & holidays",
+      "weekendTime": "06:30 – 18:30",
+      "palace": "Royal Palace complex (separate)",
+      "palaceTime": "07:30 – 11:00 / 14:00 – 17:00",
+      "note": "Palace hours may shift for royal events or ceremonies — check official notices before you go."
+    },
+    "dress": {
+      "title": "Dress code (palace & temple areas)",
+      "tag": "Palace & temple areas",
+      "shoulders": "Cover shoulders — avoid sleeveless tops, tank tops and camisoles.",
+      "knees": "Cover knees — shorts and skirts should reach below the knee; keep a shawl handy.",
+      "shoes": "Wear easy slip-on closed shoes or sandals; some indoor areas require removing shoes.",
+      "avoid": "Avoid tight, sheer, crop-top or overly short clothes.",
+      "note": "The outer public park has no strict dress rules, but modest clothing is always respectful in a cultural district."
+    },
+    "tickets": {
+      "title": "Tickets & location",
+      "tag": "Quick reference",
+      "parkFee": "Royal Palace Park (outer green space)",
+      "parkFeeValue": "Free entry",
+      "palaceFee": "Royal Palace complex (incl. Silver Pagoda)",
+      "palaceFeeValue": "Separate ticket — see current official pricing",
+      "plus": "Google Plus Code: ",
+      "mapsButton": "Open in Google Maps"
+    }
+  },
   "faq": {
     "eyebrow": "FAQ",
     "title": "Frequently Asked Questions",
     "items": [
       {
-        "q": "Where is Royal Palace Park?",
-        "a": "In central Phnom Penh, near the Royal Palace along Samdach Sothearos Blvd, close to the riverside (Sisowath Quay)."
+        "q": "What are Royal Palace Park opening hours in 2026?",
+        "a": "As a general guide for 2026, the outer public green space is typically open 07:00–18:00 on weekdays and 06:30–18:30 on weekends/holidays. The adjacent Royal Palace complex usually follows 07:30–11:00 and 14:00–17:00. Always confirm on-site or through official channels before visiting."
       },
       {
-        "q": "Is there an entrance fee for the park?",
-        "a": "The outer public green space is usually free to enter. The adjacent palace complex (including the Silver Pagoda) is a separate ticketed site — please check official notices."
+        "q": "Is there a dress code for the Royal Palace in Phnom Penh?",
+        "a": "Yes — for the palace compound and any temple areas, shoulders and knees must be covered. Avoid sleeveless tops, tank tops, crop tops and short shorts/skirts. Keep a lightweight shawl or long scarf handy for last-minute cover-ups."
       },
       {
-        "q": "Can I visit inside the Royal Palace?",
-        "a": "Yes, but it is a separate attraction requiring a ticket and a dress code (shoulders and knees covered, no sleeveless tops/shorts). Opening hours may also shift temporarily for royal events."
+        "q": "How much is the Royal Palace entrance fee in Phnom Penh?",
+        "a": "The outer public park (Royal Palace Park) is usually free to enter. The Royal Palace complex with Silver Pagoda is a separate ticketed site — prices are set officially and change occasionally, so check at the ticket office or on the official website on the day of your visit."
       },
       {
-        "q": "Is it suitable for families?",
-        "a": "Very much so. Open lawns, flat paths and easy riverside access make it great for family walks, cultural discovery and relaxed photography."
+        "q": "What are the official Royal Palace opening hours?",
+        "a": "Commonly the palace welcomes visitors 07:30–11:00 in the morning and resumes 14:00–17:00 in the afternoon, with a midday break. Parts may close for ceremonies or royal events, so always double-check at the entrance on the day."
       },
       {
-        "q": "When is a good time to visit?",
-        "a": "Mornings and evenings are cooler and better for photos; avoid long sun exposure at midday."
+        "q": "Can I enter wearing shorts or a sleeveless top?",
+        "a": "Inside the Royal Palace or temples — no. You will usually be refused entry or asked to cover up. If you plan to go inside the compound, wear or carry a shoulder and knee covering; some vendors sell wraps nearby but they are not guaranteed."
       },
       {
-        "q": "Any photography tips?",
-        "a": "The park's outer area is free to photograph. If you enter the palace grounds, follow their rules and show respect to religious sites and guards; avoid disturbing ceremonies."
+        "q": "Where is Royal Palace Park located?",
+        "a": "In central Phnom Penh along Samdach Sothearos Blvd (3), facing the Royal Palace and close to the Tonlé Sap riverside promenade (Sisowath Quay). Google Plus Code: HW8J+3VX."
       },
       {
-        "q": "What else is nearby?",
-        "a": "The National Museum, Independence Monument, riverside night market and Central Market are all within walking distance or a short ride, forming a one-day city culture route."
+        "q": "Is the park free or do I need tickets?",
+        "a": "Royal Palace Park itself (the outer public lawns and promenade) is typically free. Tickets only apply if you go inside the Royal Palace / Silver Pagoda complex next door — see their official ticket booth."
       },
       {
-        "q": "How do I get there?",
-        "a": "Walk, ride-hailing or taxi from the centre all work; about 30–45 minutes by road from Phnom Penh International Airport. See the 'Getting There' section."
+        "q": "Can I see the Silver Pagoda and throne hall on the same visit?",
+        "a": "Yes — they are part of the same ticketed Royal Palace compound. Allow at least 1.5–2 hours to visit both, plus security and queuing. Follow all photography rules inside religious areas."
       },
       {
-        "q": "What should I wear?",
-        "a": "The park is an open space, so everyday clothing is fine. But if you plan to visit the palace or temples, bring shoulder- and knee-covering clothes to meet the dress code."
+        "q": "Is Royal Palace Park wheelchair or stroller friendly?",
+        "a": "Main outer paths and lawn edges are generally flat. Side streets and kerbs near the riverside can be uneven, so allow extra time. Public benches are frequent along the promenade for rest stops."
+      },
+      {
+        "q": "What else is within walking distance?",
+        "a": "The National Museum of Cambodia is about 5–10 minutes on foot, Independence Monument roughly 15–20 minutes, the riverside promenade (Sisowath Quay) about 10–15 minutes, and Central Market a short ride away — they combine well into a one-day city culture route."
       }
     ]
   },
   "map": {
     "eyebrow": "Location",
-    "title": "Find Royal Palace Park on the Map",
+    "title": "Location & How to Visit Royal Palace Park in Phnom Penh",
     "subtitle": "The park is in central Phnom Penh, next to the Royal Palace and close to the riverside.",
     "addressLabel": "Address",
     "addressValue": "Samdach Sothearos Blvd, Phnom Penh, Cambodia",
@@ -377,8 +676,8 @@
   },
   "nearby": {
     "eyebrow": "Nearby",
-    "title": "Worth combining nearby",
-    "subtitle": "Royal Palace Park sits at the heart of Phnom Penh's historic quarter. The following landmarks are reachable on foot or a short ride. Details are compiled from public sources; opening and ticketing follow official information.",
+    "title": "Landmarks & Attractions Around Royal Palace Park",
+    "subtitle": "When visiting Royal Palace Park, visitors can easily explore surrounding historical landmarks and points of interest, including the National Museum of Cambodia and Independence Monument. Royal Palace Park sits at the heart of Phnom Penh's historic quarter in Phnom Penh, Cambodia, and the landmarks below are reachable on foot or a short ride. Details are compiled from public sources; opening and ticketing follow official information.",
     "spots": [
       {
         "icon": "building",
@@ -464,7 +763,8 @@
     "resources": [
       { "label": "Google Maps", "url": "https://maps.app.goo.gl/FbkFtnh44ZvDLpNi9" },
       { "label": "Tourism Cambodia", "url": "https://www.tourismcambodia.org" },
-      { "label": "Phnom Penh Municipality", "url": "https://www.phnompenh.gov.kh" }
+      { "label": "Phnom Penh Municipality", "url": "https://www.phnompenh.gov.kh" },
+      { "label": "Ministry of Culture and Fine Arts", "url": "https://www.mcfa.gov.kh" }
     ],
     "visitTitle": "Visit",
     "addressLabel": "Address",
@@ -474,6 +774,47 @@
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
     "cookie": "Cookie Settings"
+  },
+  "reviews": {
+    "eyebrow": "Ratings & Reviews",
+    "title": "Google Maps user ratings for Royal Palace Park",
+    "subtitle": "The rating and review count below are synchronised from Google Maps user reviews and are shown for reference only.",
+    "ratingLabel": "Average rating",
+    "reviewsLabel": " public reviews on Google Maps",
+    "sourceTitle": "Review source & attribution",
+    "sourceNote": "Sourced from Google Maps user reviews, synced September 2026. Copyright belongs to the original authors and Google Maps.",
+    "copyright": "Review content and its copyright belong to the individual authors and Google Maps. This site displays the rating as a citation only and claims no ownership or endorsement.",
+    "viewAll": "View all reviews on Google Maps",
+    "syncNote": "Ratings and review counts are synced from Google Maps user reviews · September 2026 · Click to view all reviews on Google Maps ↗",
+    "disclaimer": "Ratings and review counts are dynamic and may change at any time; refer to the live Google Maps page."
+  },
+  "sources": {
+    "eyebrow": "Sources",
+    "title": "Sources & Attribution",
+    "intro": "Royal Palace Park is an independent, non-profit visitor information project with no affiliation to any government body or official organisation. Facts on this page are cross-checked against the public sources listed below, and the rating shown is synchronised from Google Maps user reviews. No commercial recommendation, paid ranking or promotion is included.",
+    "reviews": {
+      "label": "Ratings & reviews",
+      "value": "4.5 / 5 · 5,599 user reviews on Google Maps",
+      "sync": "Sync time: September 2026",
+      "note": "Sourced from Google Maps user reviews, synced September 2026. Copyright belongs to the original authors and Google Maps.",
+      "linkLabel": "View all reviews on Google Maps"
+    },
+    "official": {
+      "label": "Official & public sources",
+      "items": [
+        { "label": "Google Maps — Royal Palace Park (listing & user reviews)", "url": "https://maps.app.goo.gl/FbkFtnh44ZvDLpNi9" },
+        { "label": "Ministry of Tourism of Cambodia (mot.gov.kh)", "url": "https://www.mot.gov.kh" },
+        { "label": "Tourism Cambodia (tourismcambodia.org)", "url": "https://www.tourismcambodia.org" },
+        { "label": "Phnom Penh Municipality (phnompenh.gov.kh)", "url": "https://www.phnompenh.gov.kh" }
+      ]
+    },
+    "photoRights": {
+      "label": "Image rights",
+      "text": "All images displayed on this website are the property of, and copyrighted by, their original photographers. If you believe your rights are affected, please contact us."
+    },
+    "independenceTitle": "Editorial independence",
+    "independenceText": "This website is an independent, non-profit visitor information project. It is not affiliated with any government agency or official organisation. Tourist information is compiled from the public sources above and may change; always confirm opening hours and ticketing on official channels.",
+    "lastReviewed": "Content reviewed September 2026"
   },
   "legal": {
     "privacy": {

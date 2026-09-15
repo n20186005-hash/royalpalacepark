@@ -1,0 +1,59 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  lang: string;
+  messages: any;
+}
+const { lang, messages } = Astro.props;
+const audience = messages.audience ?? {};
+const plans = audience.plans ?? [];
+---
+
+<section id="audience" class="scroll-mt-20 bg-sand/60 py-16 md:py-24">
+  <div class="mx-auto max-w-6xl px-4">
+    <p class="section-eyebrow">{audience.eyebrow}</p>
+    <h2 class="mt-2 font-serif text-3xl font-bold text-green-deep md:text-4xl">{audience.title}</h2>
+    {audience.subtitle && <p class="mt-3 max-w-2xl text-sm leading-relaxed text-charcoal/75">{audience.subtitle}</p>}
+
+    <div class="mt-8 grid gap-6 md:grid-cols-3">
+      {
+        plans.map((p: any) => (
+          <article class="glass-card flex flex-col rounded-2xl p-6">
+            <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-green-deep/10 text-green-deep">
+              <Icon name={p.icon ?? 'people'} class="w-7 h-7" />
+            </span>
+            <h3 class="mt-4 font-serif text-xl font-semibold text-charcoal">{p.title}</h3>
+            {p.tagline && <p class="mt-1 text-xs uppercase tracking-wide text-charcoal/55">{p.tagline}</p>}
+            <p class="mt-3 text-sm leading-relaxed text-charcoal/80">{p.summary}</p>
+
+            {p.pace && (
+              <div class="mt-4 flex items-center justify-between rounded-xl bg-sand/60 px-3 py-2 text-xs">
+                <span class="text-charcoal/55">{audience.pace ?? 'Pace'}</span>
+                <span class="font-semibold text-green-deep">{p.pace}</span>
+              </div>
+            )}
+
+            <h4 class="mt-5 text-sm font-semibold text-green-deep">{audience.highlights ?? 'Highlights'}</h4>
+            <ul class="mt-2 space-y-1.5 text-sm leading-relaxed text-charcoal/80">
+              {(p.highlights ?? []).map((h: string) => (
+                <li class="flex items-start gap-2"><Icon name="check" class="mt-1 w-4 h-4 shrink-0 text-gold-deep" />{h}</li>
+              ))}
+            </ul>
+
+            {p.notes && p.notes.length ? (
+              <>
+                <h4 class="mt-5 text-sm font-semibold text-green-deep">{audience.notes ?? 'Notes'}</h4>
+                <ul class="mt-2 space-y-1.5 text-xs leading-relaxed text-charcoal/70">
+                  {p.notes.map((n: string) => (
+                    <li class="flex items-start gap-2"><span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-deep" />{n}</li>
+                  ))}
+                </ul>
+              </>
+            ) : null}
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

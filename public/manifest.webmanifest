@@ -1,0 +1,62 @@
+{
+  "name": "Royal Palace Park — Phnom Penh Visitor Guide",
+  "short_name": "Royal Palace Park",
+  "description": "Visitor guide to Royal Palace Park in Phnom Penh, Cambodia: location map, opening details, photo gallery, ratings synchronised from Google Maps user reviews and travel tips.",
+  "id": "/km/",
+  "start_url": "/km/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
+  "orientation": "portrait-primary",
+  "background_color": "#FBF7EF",
+  "theme_color": "#274C30",
+  "lang": "km",
+  "dir": "ltr",
+  "categories": ["travel", "navigation", "lifestyle"],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Location & Map",
+      "short_name": "Map",
+      "url": "/km/#map",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Photo Gallery",
+      "short_name": "Gallery",
+      "url": "/km/#gallery",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Ratings & Reviews",
+      "short_name": "Reviews",
+      "url": "/km/#reviews",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

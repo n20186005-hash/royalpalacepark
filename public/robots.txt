@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap（由 @astrojs/sitemap 生成）
+Sitemap: https://royalpalacepark.com/sitemap-index.xml
