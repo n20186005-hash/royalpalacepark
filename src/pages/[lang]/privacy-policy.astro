@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import LegalPage from '../../components/LegalPage.astro';
 import { ui } from '../../i18n/ui';
+import { siteConfig } from '../../config';
 
 export function getStaticPaths() {
   return (['km', 'en', 'zh'] as const).map((lang) => ({
@@ -12,8 +13,10 @@ export function getStaticPaths() {
 
 const { lang } = Astro.props;
 const messages = ui[lang];
+const sep = lang === 'zh' ? '｜' : lang === 'km' ? ' · ' : ' | ';
+const pageTitle = `${messages.legal?.privacy?.title ?? 'Privacy Policy'}${sep}${siteConfig.name}`;
 ---
 
-<BaseLayout lang={lang} messages={messages} path="privacy-policy" robots="noindex, follow">
+<BaseLayout lang={lang} messages={messages} path="privacy-policy" robots="noindex, follow" title={pageTitle}>
   <LegalPage lang={lang} messages={messages} kind="privacy" />
 </BaseLayout>

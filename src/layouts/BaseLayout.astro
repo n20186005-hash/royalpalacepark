@@ -17,10 +17,11 @@ interface Props {
   messages: any;
   path?: string;
   robots?: string;
+  title?: string;
 }
-const { lang, messages, path = '', robots } = Astro.props;
+const { lang, messages, path = '', robots, title: titleOverride } = Astro.props;
 
-const title = messages.meta?.title ?? siteConfig.name;
+const title = titleOverride ?? messages.meta?.title ?? siteConfig.name;
 const description = messages.meta?.description ?? '';
 const ogTitle = messages.meta?.ogTitle ?? title;
 const ogDescription = messages.meta?.ogDescription ?? description;

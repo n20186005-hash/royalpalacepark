@@ -1,9 +1,9 @@
 {
   "meta": {
-    "title": "Royal Palace Park Phnom Penh (2026): Hours, Dress Code & Tickets",
-    "description": "Plan your visit to Royal Palace Park in Phnom Penh (4.5★, 5,599 Google Maps reviews · Sep 2026). Opening hours, dress code rules, entrance info, map & location at HW8J+3VX Samdach Sothearos Blvd — updated 2026 visitor guide.",
-    "ogTitle": "Royal Palace Park Phnom Penh · Hours & Visiting Guide (2026)",
-    "ogDescription": "2026 independent visitor guide for Royal Palace Park, Phnom Penh — opening hours, dress code, tickets, location map, 4.5★ Google Maps rating & nearby National Museum / Independence Monument."
+    "title": "Royal Palace Park Phnom Penh | Photos & Visitor Guide",
+    "description": "Explore Royal Palace Park in Phnom Penh, Cambodia. Find the location, photos, visiting tips, nearby attractions and the best time to enjoy the park.",
+    "ogTitle": "Royal Palace Park Phnom Penh · Photos & Visitor Guide",
+    "ogDescription": "Independent visitor guide for Royal Palace Park, Phnom Penh — location, photos, visiting tips, opening hours, 4.5★ Google Maps rating & nearby National Museum / Independence Monument."
   },
   "header": {
     "siteName": "Royal Palace Park",
@@ -31,19 +31,19 @@
   },
   "hero": {
     "localName": "ឧទ្យានព្រះបរមរាជវាំង",
-    "title": "Royal Palace Park (Phnom Penh)",
+    "title": "Royal Palace Park in Phnom Penh",
     "subtitle": "Welcome to Royal Palace Park (ឧទ្យានព្រះបរមរាជវាំង / 王宫公园), widely recognised as the central Royal Palace Park of Phnom Penh, Cambodia. A peaceful public green space beside Cambodia's Royal Palace, it gives visitors a place to enjoy the capital's cultural landscape.",
     "rating": "4.5",
-    "reviews": "5,599",
+    "reviews": "5,635",
     "reviewsSuffix": "public reviews",
-    "ratingNote": "Ratings and review counts are synchronised from Google Maps user reviews · September 2026 · Click to see all reviews on Google Maps ↗",
+    "ratingNote": "Ratings and review counts are synchronised from Google Maps user reviews · October 2026 · Click to see all reviews on Google Maps ↗",
     "nearbyCluster": "When visiting Royal Palace Park, visitors can easily explore the surrounding historical landmarks and points of interest, including {landmark1} and {landmark2}.",
     "ctaMaps": "View Map",
     "ctaExplore": "Start Exploring",
     "facts": [
       { "k": "Type", "v": "Public Park" },
       { "k": "Location", "v": "Phnom Penh, Cambodia" },
-      { "k": "Rating", "v": "4.5 / 5 (5,599)" },
+      { "k": "Rating", "v": "4.5 / 5 (5,635)" },
       { "k": "District", "v": "Royal Palace area" }
     ],
     "heroAlt": "Royal Palace Park, a green public space in front of the Royal Palace in central Phnom Penh, Cambodia"
@@ -58,7 +58,7 @@
       { "k": "Type", "v": "City Park / Public Space", "icon": "tree" },
       { "k": "Location", "v": "Samdach Sothearos Blvd, Phnom Penh", "icon": "pin" },
       { "k": "Map Code", "v": "HW8J+3VX", "icon": "pin" },
-      { "k": "Rating", "v": "4.5 / 5 (5,599 Google Maps reviews)", "icon": "star" },
+      { "k": "Rating", "v": "4.5 / 5 (5,635 Google Maps reviews)", "icon": "star" },
       { "k": "City", "v": "Phnom Penh, Cambodia", "icon": "city" }
     ]
   },
@@ -230,13 +230,13 @@
       {
         "icon": "plane",
         "title": "From the Airport",
-        "description": "Phnom Penh International Airport (PNH) is about 10 km west of the city centre. From there, continue to the park by taxi, ride-hailing app or bus.",
+        "description": "Techo International Airport (KTI) is about 20 km south of the city centre and has been Phnom Penh's main international gateway since 9 September 2025. From there, continue to the park by taxi, ride-hailing app or bus.",
         "details": [
           "After baggage claim, follow the signs to the official taxi counter or the ride-hailing pick-up point outside the arrivals hall",
           "For a licensed taxi: pay the fixed fare at the counter, get a voucher, and hand it to the driver at the official rank",
           "For a ride-hailing app: connect to airport Wi-Fi, set the destination to 'Royal Palace, Samdach Sothearos Blvd', and meet the driver at the assigned door",
           "Have local currency (riel) or US dollars small bills ready — most airport taxis do not take cards",
-          "The trip to the Royal Palace area takes roughly 30–45 minutes depending on traffic; show the driver the destination on a map app if needed",
+          "The trip to the Royal Palace area takes roughly 35–50 minutes depending on traffic; show the driver the destination on a map app if needed",
           "Some city bus lines connect the airport with central Phnom Penh — check current routes and the last service time before you travel"
         ]
       },
@@ -782,10 +782,10 @@
     "ratingLabel": "Average rating",
     "reviewsLabel": " public reviews on Google Maps",
     "sourceTitle": "Review source & attribution",
-    "sourceNote": "Sourced from Google Maps user reviews, synced September 2026. Copyright belongs to the original authors and Google Maps.",
+    "sourceNote": "Sourced from Google Maps user reviews, synced October 2026. Copyright belongs to the original authors and Google Maps.",
     "copyright": "Review content and its copyright belong to the individual authors and Google Maps. This site displays the rating as a citation only and claims no ownership or endorsement.",
     "viewAll": "View all reviews on Google Maps",
-    "syncNote": "Ratings and review counts are synced from Google Maps user reviews · September 2026 · Click to view all reviews on Google Maps ↗",
+    "syncNote": "Ratings and review counts are synced from Google Maps user reviews · October 2026 · Click to view all reviews on Google Maps ↗",
     "disclaimer": "Ratings and review counts are dynamic and may change at any time; refer to the live Google Maps page."
   },
   "sources": {
@@ -794,9 +794,9 @@
     "intro": "Royal Palace Park is an independent, non-profit visitor information project with no affiliation to any government body or official organisation. Facts on this page are cross-checked against the public sources listed below, and the rating shown is synchronised from Google Maps user reviews. No commercial recommendation, paid ranking or promotion is included.",
     "reviews": {
       "label": "Ratings & reviews",
-      "value": "4.5 / 5 · 5,599 user reviews on Google Maps",
-      "sync": "Sync time: September 2026",
-      "note": "Sourced from Google Maps user reviews, synced September 2026. Copyright belongs to the original authors and Google Maps.",
+      "value": "4.5 / 5 · 5,635 user reviews on Google Maps",
+      "sync": "Sync time: October 2026",
+      "note": "Sourced from Google Maps user reviews, synced October 2026. Copyright belongs to the original authors and Google Maps.",
       "linkLabel": "View all reviews on Google Maps"
     },
     "official": {
@@ -814,7 +814,7 @@
     },
     "independenceTitle": "Editorial independence",
     "independenceText": "This website is an independent, non-profit visitor information project. It is not affiliated with any government agency or official organisation. Tourist information is compiled from the public sources above and may change; always confirm opening hours and ticketing on official channels.",
-    "lastReviewed": "Content reviewed September 2026"
+    "lastReviewed": "Content reviewed October 2026"
   },
   "legal": {
     "privacy": {

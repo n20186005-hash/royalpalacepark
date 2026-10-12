@@ -49,8 +49,8 @@ export const siteConfig = {
 
   // 评分与评价数来源（Google 地图用户评价）
   reviewsSourceName: 'Google Maps',
-  reviewsSyncMonth: '2026-09',
-  reviewsSyncLabel: 'September 2026',
+  reviewsSyncMonth: '2026-10',
+  reviewsSyncLabel: 'October 2026',
 };
 
 export default siteConfig;
@@ -108,10 +108,10 @@ export const attraction = {
     en: 'Royal Palace Park',
     zh: '王宫公园',
   },
-  // 谷歌地图（Google Maps）用户评价最新数据：4.5 / 5,599
+  // 谷歌地图（Google Maps）用户评价最新数据：4.5 / 5,635
   rating: '4.5',
-  reviews: '5599',
-  reviewsCount: '5,599',
+  reviews: '5635',
+  reviewsCount: '5,635',
   lat: 11.5615,
   lng: 104.9310,
   address: {
