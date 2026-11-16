@@ -11,7 +11,7 @@ const hasSite = !!siteConfig.baseUrl;
 // 或 export const prerender = false 的页面才在 Cloudflare Workers 上按需渲染。
 // 这样兼顾静态性能 + SSR 能力。
 export default defineConfig({
-  output: 'hybrid',
+  output: 'static',
   adapter: cloudflare({
     mode: 'directory',
   }),

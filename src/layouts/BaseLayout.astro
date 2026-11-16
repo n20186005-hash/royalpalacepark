@@ -18,11 +18,13 @@ interface Props {
   path?: string;
   robots?: string;
   title?: string;
+  description?: string;
+  subpage?: boolean;
 }
-const { lang, messages, path = '', robots, title: titleOverride } = Astro.props;
+const { lang, messages, path = '', robots, title: titleOverride, description: descriptionOverride, subpage = false } = Astro.props;
 
 const title = titleOverride ?? messages.meta?.title ?? siteConfig.name;
-const description = messages.meta?.description ?? '';
+const description = descriptionOverride ?? messages.meta?.description ?? '';
 const ogTitle = messages.meta?.ogTitle ?? title;
 const ogDescription = messages.meta?.ogDescription ?? description;
 const heroImage = `${siteConfig.baseUrl}/gallery/royal-palace-park-1.jpg`;
@@ -33,11 +35,11 @@ const url = `${siteConfig.baseUrl}/${lang}${basePath}`;
 const alternates = buildAlternates(path);
 const htmlLang = htmlLangAttr(lang);
 
-const attractionName = attraction.name[lang] ?? attraction.name.en;
+const attractionName = (attraction.name as Record<string, string>)[lang] ?? attraction.name.en;
 const altNames = [attraction.name.km, attraction.name.zh, attraction.name.en].filter(
   (n, i, arr) => n && n !== attractionName && arr.indexOf(n) === i,
 );
-const addressValue = attraction.address[lang] ?? attraction.address.en;
+const addressValue = (attraction.address as Record<string, string>)[lang] ?? attraction.address.en;
 const landmarks = landmarkNames(lang);
 
 const faqItems = (messages.faq?.items ?? []).map((it: any) => ({
@@ -51,7 +53,16 @@ const faqItems = (messages.faq?.items ?? []).map((it: any) => ({
  * 注意：评分与评价数（aggregateRating）仅作页面展示，不写入 JSON-LD，
  * 避免被判定为自利性评论结构化数据（Google 结构化数据政策）。
  */
-const jsonLd = {
+const jsonLd = subpage ? {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'WebPage', '@id': `${url}#webpage`, url, name: title, description, inLanguage: htmlLang, isPartOf: { '@id': `${siteConfig.baseUrl}/#website` } },
+    { '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: siteConfig.fullName, item: `${siteConfig.baseUrl}/${lang}` },
+      { '@type': 'ListItem', position: 2, name: title, item: url },
+    ] },
+  ],
+} : {
   '@context': 'https://schema.org',
   '@graph': [
     {

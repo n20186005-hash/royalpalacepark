@@ -17,9 +17,9 @@
     "deploy": "npm run cf:deploy"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "12.2.0",
+    "@astrojs/cloudflare": "14.4.8",
     "@tailwindcss/vite": "4.3.3",
-    "astro": "7.2.0",
+    "astro": "^7.4.0",
     "tailwindcss": "4.3.3"
   },
   "devDependencies": {
@@ -28,6 +28,6 @@
     "cross-env": "7.0.3",
     "sharp": "0.35.3",
     "typescript": "5.9.3",
-    "wrangler": "4.120.0"
+    "wrangler": "^4.160.0"
   }
 }

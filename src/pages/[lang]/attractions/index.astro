@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { ui } from '../../../i18n/ui';
+import { nearbyAttractions, attractionMap, type Lang } from '../../../data/attractions';
+export function getStaticPaths() { return (['km', 'en', 'zh'] as const).map(lang => ({ params: { lang } })); }
+const lang = Astro.params.lang as Lang;
+const copy = {
+  km: { heading: 'ស្វែងយល់កន្លែងក្បែរព្រះបរមរាជវាំង', lead: 'គោលដៅប្រវត្តិសាស្ត្រ វប្បធម៌ និងកន្លែងដើរលេងនៅកណ្ដាលភ្នំពេញ។ សូមពិនិត្យម៉ោង និងលក្ខខណ្ឌចូលទស្សនានៅនឹងកន្លែង។', detail: 'អានព័ត៌មាន', map: 'មើលទីតាំង' },
+  en: { heading: 'Explore the Royal Quarter', lead: 'Individual guides to history, culture and walks around central Phnom Penh. Check current access arrangements locally.', detail: 'Explore guide', map: 'View map' },
+  zh: { heading: '探索金边王宫周边', lead: '金边市中心的历史、文化与步行景点独立指南。开放时间、门票和入场范围请现场核实。', detail: '阅读景点指南', map: '查看地图' },
+}[lang];
+---
+<BaseLayout lang={lang} messages={ui[lang]} path="attractions" title={`${copy.heading} | Royal Palace Park`} description={copy.lead} subpage>
+  <section class="bg-cream py-16 md:py-24">
+    <div class="mx-auto max-w-6xl px-4">
+      <a href={`/${lang}#nearby`} class="text-sm text-green-deep underline">← Royal Palace Park</a>
+      <h1 class="mt-5 font-serif text-4xl font-bold text-green-deep">{copy.heading}</h1>
+      <p class="mt-4 max-w-3xl text-charcoal/75">{copy.lead}</p>
+      <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {nearbyAttractions.map(item => <article class="glass-card overflow-hidden rounded-2xl">
+          <a href={`/${lang}/attractions/${item.slug}`}><img src={`/attractions/${item.slug}.jpg`} alt={item.name[lang]} loading="lazy" width="960" height="640" class="h-48 w-full object-cover" /></a>
+          <div class="p-6">
+          <h2 class="font-serif text-xl font-bold text-green-deep">{item.name[lang]}</h2>
+          <p class="mt-3 text-sm leading-relaxed text-charcoal/75">{item.intro[lang]}</p>
+          <div class="mt-5 flex flex-wrap gap-4 text-sm font-semibold text-green-deep">
+            <a class="underline" href={`/${lang}/attractions/${item.slug}`}>{copy.detail} →</a>
+            <a class="underline" href={attractionMap(item.name.en)} target="_blank" rel="noopener noreferrer">{copy.map} ↗</a>
+          </div></div>
+        </article>)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

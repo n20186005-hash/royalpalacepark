@@ -10,6 +10,7 @@ interface Props {
 const { lang, messages } = Astro.props;
 
 const nav = [
+  { id: 'attractions', label: lang === 'zh' ? '周边景点' : lang === 'km' ? 'ទីតាំងក្បែរៗ' : 'Explore' },
   { id: 'intro', label: messages.header.intro },
   { id: 'history', label: messages.header.history },
   { id: 'architecture', label: messages.header.architecture },
@@ -36,7 +37,7 @@ const nav = [
       {
         nav.map((item) => (
           <a
-            href={`/${lang}#${item.id}`}
+            href={item.id === 'attractions' ? `/${lang}/attractions` : `/${lang}#${item.id}`}
             class="rounded-md px-3 py-2 text-sm font-medium text-charcoal/80 transition hover:bg-sand hover:text-green-deep"
           >
             {item.label}
@@ -88,7 +89,7 @@ const nav = [
       {
         nav.map((item) => (
           <a
-            href={`/${lang}#${item.id}`}
+            href={item.id === 'attractions' ? `/${lang}/attractions` : `/${lang}#${item.id}`}
             class="rounded-md px-3 py-2 text-sm font-medium text-charcoal/80 transition hover:bg-sand hover:text-green-deep"
           >
             {item.label}
