@@ -2,7 +2,7 @@
 # 适配：Astro hybrid 模式 + @astrojs/cloudflare 适配器
 # 构建产物在 .astro/output/ 下，由 adapter 生成 wrangler 可识别的结构
 
-name = "royal-palace-park"
+name = "royalpalacepark"
 
 compatibility_date = "2025-07-28"
 
