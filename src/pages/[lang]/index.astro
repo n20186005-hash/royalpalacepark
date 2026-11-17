@@ -26,7 +26,6 @@ import Reviews from '../../components/Reviews.astro';
 import MapSection from '../../components/MapSection.astro';
 import Nearby from '../../components/Nearby.astro';
 import FAQ from '../../components/FAQ.astro';
-import Sources from '../../components/Sources.astro';
 import { ui } from '../../i18n/ui';
 
 export function getStaticPaths() {
@@ -62,5 +61,4 @@ const messages = ui[lang];
   <MapSection lang={lang} messages={messages} />
   <Nearby lang={lang} messages={messages} />
   <FAQ lang={lang} messages={messages} />
-  <Sources lang={lang} messages={messages} />
 </BaseLayout>

@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ui } from '../../i18n/ui';
+export function getStaticPaths() { return (['km', 'en', 'zh'] as const).map(lang => ({ params: { lang } })); }
+const lang = Astro.params.lang as 'km' | 'en' | 'zh';
+const messages = ui[lang];
+---
+<BaseLayout lang={lang} messages={messages} path="about" title={`${messages.footer.missionTitle} | Royal Palace Park`} subpage>
+  <section class="bg-cream py-16 md:py-24"><div class="mx-auto max-w-3xl px-4">
+    <a href={`/${lang}`} class="text-sm text-green-deep underline">← {messages.header.siteName}</a>
+    <h1 class="mt-8 font-serif text-4xl font-bold text-green-deep">{messages.footer.missionTitle}</h1>
+    <p class="mt-6 leading-8 text-charcoal/80">{messages.footer.missionText}</p>
+    <a href={`/${lang}/sources`} class="mt-8 inline-block font-semibold text-green-deep underline">{messages.sources.title} →</a>
+  </div></section>
+</BaseLayout>

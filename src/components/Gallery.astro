@@ -82,7 +82,11 @@ function semanticAlt(rawAlt: string, index: number): string {
     </div>
 
     <div class="mt-8 flex flex-col items-start justify-between gap-4 rounded-2xl bg-sand/70 p-5 sm:flex-row sm:items-center">
-      <p class="text-sm text-charcoal/70">{gallery.creditNote}</p>
+      <div class="flex flex-wrap gap-4 text-sm font-medium text-green-deep">
+        <a href={`/${lang}/image-credits`} class="underline">{gallery.creditNote ? (lang === 'zh' ? '图片来源 →' : lang === 'km' ? 'ប្រភពរូបភាព →' : 'Image credits →') : ''}</a>
+        <a href={`/${lang}/sources`} class="underline">{messages.sources.title} →</a>
+        <a href={`/${lang}/about`} class="underline">{messages.footer.missionTitle} →</a>
+      </div>
       <a
         href={mapsUrl}
         target="_blank"

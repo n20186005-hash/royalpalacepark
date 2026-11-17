@@ -1,4 +1,5 @@
 export type Lang = 'km' | 'en' | 'zh';
+import { extraAttractions } from './extraAttractions';
 type Local = Record<Lang, string>;
 const tr = (km: string, en: string, zh: string): Local => ({ km, en, zh });
 
@@ -63,6 +64,7 @@ export const nearbyAttractions = [
     visit: tr('ដើរពេលព្រឹកឬរសៀលត្រជាក់ យកទឹកផឹក និងប្រុងប្រយ័ត្នចរាចរណ៍នៅច្រកផ្លូវ។', 'Walk in the cooler morning or late afternoon, carry water and use marked crossings at road junctions.', '适合清晨或傍晚步行；注意补水，在路口使用安全过街设施。'),
     source: 'https://www.tourismcambodia.com/travelguides/provinces/phnom-penh/what-to-see.htm',
   },
+  ...extraAttractions,
 ] as const;
 
 export const attractionMap = (name: string) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name + ', Phnom Penh, Cambodia')}`;
