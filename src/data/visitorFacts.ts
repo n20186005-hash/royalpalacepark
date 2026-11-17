@@ -1,5 +1,6 @@
 import type { Lang } from './attractions';
 import { extraVisitorFacts } from './extraVisitorFacts';
+import { moreVisitorFacts } from './moreVisitorFacts';
 type Local = Record<Lang, string>;
 const t = (km: string, en: string, zh: string): Local => ({ km, en, zh });
 
@@ -15,6 +16,7 @@ export const visitorFacts: Record<string, {
   source?: string;
 }> = {
   ...extraVisitorFacts,
+  ...moreVisitorFacts,
   'royal-palace': {
     category: t('ព្រះបរមរាជវាំង និងបេតិកភណ្ឌ', 'Working royal palace and cultural heritage', '王室建筑群／历史文化遗产'),
     time: t('ការចូលទស្សនាត្រូវតាមម៉ោងដែលព្រះបរមរាជវាំងប្រកាស។ អាចបិទពេលមានព្រះរាជពិធី។', 'Palace visitor sessions follow published gate arrangements; official ceremonies can cause closures. Check the entrance before visiting.', '宫内按照现场公布的参观时段开放；王室仪式可能临时关闭。出发前或到入口现场核实。'),

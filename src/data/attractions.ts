@@ -1,5 +1,6 @@
 export type Lang = 'km' | 'en' | 'zh';
 import { extraAttractions } from './extraAttractions';
+import { moreAttractions } from './moreAttractions';
 type Local = Record<Lang, string>;
 const tr = (km: string, en: string, zh: string): Local => ({ km, en, zh });
 
@@ -65,6 +66,7 @@ export const nearbyAttractions = [
     source: 'https://www.tourismcambodia.com/travelguides/provinces/phnom-penh/what-to-see.htm',
   },
   ...extraAttractions,
+  ...moreAttractions,
 ] as const;
 
 export const attractionMap = (name: string) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name + ', Phnom Penh, Cambodia')}`;

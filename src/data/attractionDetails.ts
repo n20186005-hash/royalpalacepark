@@ -1,5 +1,6 @@
 import type { Lang } from './attractions';
 import { extraDetails } from './extraDetails';
+import { moreDetails } from './moreDetails';
 
 type Local = Record<Lang, string>;
 const t = (km: string, en: string, zh: string): Local => ({ km, en, zh });
@@ -14,6 +15,7 @@ export const details: Record<string, {
   faq: { q: Local; a: Local }[];
 }> = {
   ...extraDetails,
+  ...moreDetails,
   'royal-palace': {
     stewardship: t('ព្រះបរមរាជវាំងជាទីប្រថាប់និងទីតាំងព្រះរាជពិធីរបស់ព្រះមហាក្សត្រ។ ការចូលទស្សនាតំបន់ខាងក្នុងស្ថិតក្រោមការរៀបចំរបស់អាជ្ញាធរព្រះបរមរាជវាំង។ សួនសាធារណៈខាងក្រៅមិនមែនជាតំបន់ចូលទស្សនាខាងក្នុងទេ។', 'The Royal Palace is an active royal residence and ceremonial complex. Access to the palace grounds is administered through royal-palace visitor arrangements; the exterior public park is a separate public space. Respect closures during state ceremonies.', '柬埔寨王宫是仍在使用的王室居所与礼仪建筑群，宫内参观依王宫管理方公布的入场安排执行。宫墙外的王宫公园则是不同的公共空间，官方仪式期间可能临时调整开放范围。'),
     highlight: t('អគាររាជពិធី ដំបូលបែបខ្មែរ និងសួនផ្នែកខាងក្នុងបង្ហាញពីទំនៀមទម្លាប់រាជវាំង។', 'The royal precinct brings together ceremonial halls, Khmer-style rooflines and formal courtyards. The gilded skyline visible above the perimeter walls is also part of Phnom Penh’s cityscape.', '礼仪殿堂、金色塔尖、高棉式屋顶与庭院共同构成王宫景观。尤其值得区分从公共公园可见的外部轮廓与需要购票进入的宫内区域。'),
