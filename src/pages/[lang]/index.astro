@@ -1,8 +1,7 @@
 ---
-// Hybrid 模式：Weather.astro 服务器端 fetch Open-Meteo API，
-// 因此本页必须 SSR，导出 prerender = false，
-// 其它静态部分（HTML/CSS/资源）仍由 Astro 编译优化。
-export const prerender = false;
+// 将首页生成静态 HTML，保证 Cloudflare assets-only Worker 能完整返回页面。
+// Weather.astro 已在请求失败时提供回退内容。
+export const prerender = true;
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/Hero.astro';
